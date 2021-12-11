@@ -4,4 +4,13 @@ package com.mucho;
 // if similarity of historical player is >X, add that player to list of players similar to given player
 public class ComparisonTool {
 
+
+/*  GET SIMILAR PLAYERS METHOD
+    input: prospect player, list of historical players
+        for each historical player:
+            checkSimilarity(historical player, prospect player)
+                compare historical player's growth, counting stats to prospect player
+            if historical player's similarity score is higher than X, add historical player to list of similar players
+        return similarPlayers*/
+
 }
