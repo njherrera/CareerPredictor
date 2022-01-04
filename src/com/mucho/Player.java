@@ -3,7 +3,7 @@ package com.mucho;
 import java.util.ArrayList;
 
 public class Player {
-    
+
     private ArrayList<Player> similarPlayers;
 
     /*checkSimilarity METHOD
