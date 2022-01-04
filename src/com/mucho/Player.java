@@ -3,8 +3,7 @@ package com.mucho;
 import java.util.ArrayList;
 
 public class Player {
-
-    private Career playerCareer;
+    
     private ArrayList<Player> similarPlayers;
 
     /*checkSimilarity METHOD
