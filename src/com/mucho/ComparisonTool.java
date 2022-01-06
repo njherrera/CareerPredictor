@@ -8,9 +8,14 @@ public class ComparisonTool {
 /*  GET SIMILAR PLAYERS METHOD
     input: prospect player, list of historical players
         for each historical player:
-            checkSimilarity(historical player, prospect player)
-                compare historical player's growth, counting stats to prospect player
-            if historical player's similarity score is higher than X, add historical player to list of similar players
+            checkSimilarity (prospect, historical player)
         return similarPlayers*/
+
+    /*
+    CHECKSIMILARITY METHOD
+    input: prospect player, historical player
+           compare historical player's growth, counting stats to prospect player
+           if historical player's similarity score is higher than X, add historical player to prospect's similarPlayers list
+     */
 
 }

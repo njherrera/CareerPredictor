@@ -5,6 +5,8 @@ public class Main {
     /*
     X Decide on data sets
     X set up MySQL database for players and seasons
+    Write code for communicating with database to get players and their seasons
+        separate class?
     Write code for comparing players
     Write code for generating a composite player based on most similar players and their similarity scores
         i.e. weight players with similarity score of 70 more than players with score of 50
