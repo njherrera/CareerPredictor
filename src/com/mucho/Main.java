@@ -1,5 +1,7 @@
 package com.mucho;
 
+import java.sql.SQLException;
+
 public class Main {
 
     /*
@@ -15,8 +17,11 @@ public class Main {
     Analyze 10 players, given player
     Run comparison on given player with just those 10 players
     Check comparison vs 538
+    Figure out some way to automate loading in the stats of a given prospect instead of entering manually
     */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
+        SQLQuerier q = new SQLQuerier();
+        q.selectPlayersSameAge(20);
     }
 }

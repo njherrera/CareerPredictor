@@ -5,6 +5,10 @@ import java.util.ArrayList;
 public class Player {
 
     private ArrayList<Player> similarPlayers;
+    private String playerName;
+    private int height;
+    private int weight;
+    private int rookieYearAge;
 
     /*checkSimilarity METHOD
             compare this player's statisical output/growth to another player
