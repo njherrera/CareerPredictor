@@ -18,9 +18,10 @@ public class SQLQuerier {
     public void selectPlayersSameAge(int age) throws SQLException {
 
         try{
+
             connect = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/nbaplayers", "root", "antistap1zza");
             statement = connect.createStatement();
-            rSet = statement.executeQuery("SELECT * FROM player WHERE rookieYearAge = " + age);
+            rSet = statement.executeQuery("SELECT * FROM player WHERE ABS(rookieYearAge - " + age + ") <= 1");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } while (rSet.next()){

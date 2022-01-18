@@ -2,20 +2,47 @@ package com.mucho;
 
 // compares given player to historical players
 // if similarity of historical player is >X, add that player to list of players similar to given player
+
+/*
+ Comparison metrics:
+    height (maybe combine height/weight into one category for physicals
+    weight
+    statistical performance in each season
+        compare performance in first year to historical player's performance in first year, same for second/third/fourth/etc.
+    growth across seasons
+ turn all of this ^^^ into composite similarity score, valuing each category equally
+ */
 public class ComparisonTool {
 
 
 /*  GET SIMILAR PLAYERS METHOD
     input: prospect player, list of historical players
-        for each historical player:
+        for each historical player in same age range as prospect player:
             checkSimilarity (prospect, historical player)
-        return similarPlayers*/
+        return similarPlayers
 
-    /*
-    CHECKSIMILARITY METHOD
+
+    checkSimilarity (Player prospect, Player historical)
     input: prospect player, historical player
-           compare historical player's growth, counting stats to prospect player
-           if historical player's similarity score is higher than X, add historical player to prospect's similarPlayers list
+    checking height, weight, performance in each season, and growth across seasons
+        separate method for each, this method calls the sub-methods and tallies up the similarity score
+
+
+   checkPhysicals method (Player prospect, Player historical)
+        divide prospect weight by historical weight to get similarity percentage, do same with historical\
+        return composite percentage
+
+   checkPerformance method (Player prospect, Player historical)
+        for each category in season, compare prospect's performance in category to historical player's performance in category
+        calculate for each season, return average of each season's similarity
+
+   checkGrowth method (Player prospect, Player historical)
+        calculate percent growth in each individual stat from year-to-year
+            i.e. if historical player's FT% increased by 10% between first 2 seasons, 20% between 2nd and 3rd, 15% between 3rd and 4th, composite FT% growth is 15%
+            compare composite growth of historical player in category to prospect's growth in that category
+            now with similarity of each category's growth, return composite similarity
      */
+
+
 
 }
