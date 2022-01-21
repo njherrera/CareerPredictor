@@ -9,7 +9,7 @@ public class Player {
     private int height;
     private int weight;
     private int rookieYearAge;
-    private Career playerCareer;
+    private ArrayList<Season> career = new ArrayList<>();
 
 /*    makeProjections METHOD (should this be a class?)
             input: given player, similarPlayers
@@ -22,7 +22,6 @@ public class Player {
         this.height = height;
         this.weight = weight;
         this.rookieYearAge = rookieAge;
-        this.playerCareer = new Career();
     }
 
     public void addSimilarPlayer(Player similarPlayer){
@@ -69,12 +68,15 @@ public class Player {
         this.rookieYearAge = rookieYearAge;
     }
 
-    public Career getPlayerCareer(){
-        return playerCareer;
+    public void addSeasonToCareer(Season season){
+        this.career.add(season);
+    }
+    public ArrayList<Season> getPlayerCareer(){
+        return career;
     }
 
-    public void setPlayerCareer(Career career){
-        this.playerCareer = career;
+    public void setPlayerCareer(ArrayList<Season> career){
+        this.career = career;
     }
 
     @Override

@@ -142,4 +142,24 @@ public class Season {
     public void setDefensivePlusMinus(double defensivePlusMinus) {
         this.defensivePlusMinus = defensivePlusMinus;
     }
+
+    @Override
+    public String toString() {
+        return "Season{" +
+                "playerName='" + playerName + '\'' +
+                ", year=" + year +
+                ", age=" + age +
+                ", trueShooting=" + trueShooting +
+                ", freeThrowPercentage=" + freeThrowPercentage +
+                ", usage=" + usage +
+                ", threePointRate=" + threePointRate +
+                ", freeThrowRate=" + freeThrowRate +
+                ", assistPercentage=" + assistPercentage +
+                ", turnoverPercentage=" + turnoverPercentage +
+                ", reboundPercentage=" + reboundPercentage +
+                ", blockPercentage=" + blockPercentage +
+                ", stealPercentage=" + stealPercentage +
+                ", defensivePlusMinus=" + defensivePlusMinus +
+                '}';
+    }
 }

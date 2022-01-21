@@ -26,5 +26,10 @@ public class Main {
     public static void main(String[] args) throws SQLException {
 
         SQLQuerier q = new SQLQuerier();
+        Player MJ = q.makePlayer("Michael Jordan");
+        q.populateCareer(MJ);
+        for (Season season : MJ.getPlayerCareer()) {
+            System.out.println(season.toString());
+        }
     }
 }

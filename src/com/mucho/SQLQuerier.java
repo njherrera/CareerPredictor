@@ -66,7 +66,19 @@ public class SQLQuerier {
             throwables.printStackTrace();
         }
         while (rSet.next()) {
-            System.out.println(rSet.getString("name"));
+            Season newSeason = new Season(plyr.getPlayerName(), rSet.getInt("year"), rSet.getInt("age"));
+            newSeason.setTrueShooting(rSet.getDouble("trueShooting"));
+            newSeason.setFreeThrowPercentage(rSet.getDouble("freeThrowPercentage"));
+            newSeason.setUsage(rSet.getDouble("usage"));
+            newSeason.setThreePointRate(rSet.getDouble("threePointRate"));
+            newSeason.setFreeThrowRate(rSet.getDouble("freeThrowRate"));
+            newSeason.setAssistPercentage(rSet.getDouble("assistPercentage"));
+            newSeason.setTurnoverPercentage(rSet.getDouble("turnoverPercentage"));
+            newSeason.setReboundPercentage(rSet.getDouble("reboundPercentage"));
+            newSeason.setBlockPercentage(rSet.getDouble("blockPercentage"));
+            newSeason.setStealPercentage(rSet.getDouble("stealPercentage"));
+            newSeason.setDefensivePlusMinus(rSet.getDouble("defensivePlusMinus"));
+            plyr.addSeasonToCareer(newSeason);
         }
     }
 
