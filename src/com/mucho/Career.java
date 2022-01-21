@@ -8,5 +8,15 @@ public class Career {
     tracks growth/regression across seasons
      */
 
-    private ArrayList<Season> playerCareer = new ArrayList<>();
+
+    private ArrayList<Season> playerCareer;
+
+    public Career() {
+        ArrayList<Season> career = new ArrayList<>();
+        this.playerCareer = career;
+    }
+
+    public void addSeason(Season season){
+        this.playerCareer.add(season);
+    }
 }

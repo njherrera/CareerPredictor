@@ -1,6 +1,7 @@
 package com.mucho;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -9,6 +10,9 @@ public class Main {
     X set up MySQL database for players and seasons
     Write code for communicating with database to get players and their seasons
         X find players with age within 1 year of prospect
+        X create player objects for a given query
+        populate each player's career with seasons
+            start with one!
     Write code for comparing players
     Write code for generating a composite player based on most similar players and their similarity scores
         i.e. weight players with similarity score of 70 more than players with score of 50
@@ -22,6 +26,5 @@ public class Main {
     public static void main(String[] args) throws SQLException {
 
         SQLQuerier q = new SQLQuerier();
-        q.selectPlayersSameAge(20);
     }
 }

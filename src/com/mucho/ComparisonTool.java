@@ -43,6 +43,20 @@ public class ComparisonTool {
             now with similarity of each category's growth, return composite similarity
      */
 
+    // pretty straightforward here
+    // the only complicated thing going on is that in order to get an accurate percentage, I use Math.min and Math.max so that the smaller number is always divided by larger number
+    public double checkPhysicals(Player prospect, Player historical){
+         int biggerHeight = Math.max(prospect.getHeight(), historical.getHeight());
+         int smallerHeight = Math.min(prospect.getHeight(), historical.getHeight());
+         double heightSimilarity = smallerHeight / biggerHeight;
+
+         int biggerWeight = Math.max(prospect.getWeight(), historical.getWeight());
+         int smallerWeight = Math.min(prospect.getWeight(), historical.getWeight());
+         double weightSimilarity = smallerWeight / biggerWeight;
+
+         double similarity = (heightSimilarity + weightSimilarity) / 2;
+         return similarity;
+    }
 
 
 }
