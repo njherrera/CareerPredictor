@@ -31,6 +31,33 @@ public class Season {
         this.playerName = playerName;
     }
 
+    // wrote this method to make the compareToAnotherSeason method easier to read, write, and understand
+    public double compareCategory(double thisSeasonCategory, double otherSeasonCategory){
+        double largerCategory = Math.max(thisSeasonCategory, otherSeasonCategory);
+        double smallerCategory = Math.min(thisSeasonCategory, otherSeasonCategory);
+        double similarity = smallerCategory / largerCategory;
+        return similarity;
+    }
+
+    public double compareToAnotherSeason(Season compareTo){
+        double overallSimilarity = 0;
+
+        overallSimilarity += this.compareCategory(this.trueShooting, compareTo.getTrueShooting());
+        overallSimilarity += this.compareCategory(this.freeThrowPercentage, compareTo.getFreeThrowPercentage());
+        overallSimilarity += this.compareCategory(this.usage, compareTo.getUsage());
+        overallSimilarity += this.compareCategory(this.threePointRate, compareTo.getThreePointRate());
+        overallSimilarity += this.compareCategory(this.freeThrowRate, compareTo.getFreeThrowRate());
+        overallSimilarity += this.compareCategory(this.assistPercentage, compareTo.getAssistPercentage());
+        overallSimilarity += this.compareCategory(this.turnoverPercentage, compareTo.getTurnoverPercentage());
+        overallSimilarity += this.compareCategory(this.reboundPercentage, compareTo.getReboundPercentage());
+        overallSimilarity += this.compareCategory(this.blockPercentage, compareTo.getBlockPercentage());
+        overallSimilarity += this.compareCategory(this.stealPercentage, compareTo.getStealPercentage());
+        overallSimilarity += this.compareCategory(this.defensivePlusMinus, compareTo.getDefensivePlusMinus());
+
+        double dividedSimilarity = overallSimilarity / 11;
+        return dividedSimilarity;
+    }
+
     public String getPlayerName() {
         return playerName;
     }

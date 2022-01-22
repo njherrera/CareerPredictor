@@ -11,9 +11,12 @@ public class Main {
     Write code for communicating with database to get players and their seasons
         X find players with age within 1 year of prospect
         X create player objects for a given query
-        populate each player's career with seasons
+        X populate each player's career with seasons
             start with one!
     Write code for comparing players
+        X physicals
+        growth
+        individual seasons
     Write code for generating a composite player based on most similar players and their similarity scores
         i.e. weight players with similarity score of 70 more than players with score of 50
     Write code for using comparisons to make projections
@@ -27,9 +30,14 @@ public class Main {
 
         SQLQuerier q = new SQLQuerier();
         Player MJ = q.makePlayer("Michael Jordan");
+        Player Clyde = q.makePlayer("Clyde Drexler");
         q.populateCareer(MJ);
-        for (Season season : MJ.getPlayerCareer()) {
-            System.out.println(season.toString());
-        }
+        q.populateCareer(Clyde);
+        ComparisonTool ct = new ComparisonTool();
+        Season MJSeason = MJ.getPlayerCareer().get(0);
+        Season clydeSeason = Clyde.getPlayerCareer().get(0);
+        double similarity = ct.checkPerformance(MJ, Clyde);
+        System.out.println(similarity);
+
     }
 }

@@ -3,55 +3,67 @@ package com.mucho;
 // compares given player to historical players
 // if similarity of historical player is >X, add that player to list of players similar to given player
 
-/*
- Comparison metrics:
-    height (maybe combine height/weight into one category for physicals
-    weight
-    statistical performance in each season
-        compare performance in first year to historical player's performance in first year, same for second/third/fourth/etc.
-    growth across seasons
- turn all of this ^^^ into composite similarity score, valuing each category equally
- */
 public class ComparisonTool {
 
 
-/*  GET SIMILAR PLAYERS METHOD
-    input: prospect player, list of historical players
-        for each historical player in same age range as prospect player:
-            checkSimilarity (prospect, historical player)
-        return similarPlayers
+//  GET SIMILAR PLAYERS METHOD
+//    input: prospect player, list of historical players
+//        for each historical player in same age range as prospect player:
+//           if checkSimilarity (prospect, historical player) >= some threshold, add the historical player to similarPlayers
+//        return similarPlayers
+//
+//
+//    checkSimilarity (Player prospect, Player historical)
+//    input: prospect player, historical player
+//    checking height, weight, performance in each season, and growth across seasons
+//        separate method for each, this method calls the sub-methods and tallies up the similarity score
+
+    public double checkSimilarity(Player prospect, Player historical){
+        double overallSimilarity = (checkPerformance(prospect, historical) + checkGrowth(prospect, historical) + checkPhysicals(prospect, historical)) / 3;
+        return overallSimilarity;
+    }
 
 
-    checkSimilarity (Player prospect, Player historical)
-    input: prospect player, historical player
-    checking height, weight, performance in each season, and growth across seasons
-        separate method for each, this method calls the sub-methods and tallies up the similarity score
+
+//   checkPerformance method (Player prospect, Player historical)
+//        for each category in season, compare prospect's performance in category to historical player's performance in category
+//        calculate for each season, return average of each season's similarity
+//   using prospect.getPlayerCareer().size() for the loop will result in only comparing the prospect's seasons to the first X of historical player's, with X being the amount of seasons the prospect has played
+
+    public double checkPerformance(Player prospect, Player historical){
+        double totalSimilarity = 0;
+        for (int i = 0; i < prospect.getPlayerCareer().size(); i++) {
+           totalSimilarity += prospect.getPlayerCareer().get(i).compareToAnotherSeason(historical.getPlayerCareer().get(i));
+        }
+        double similarity = totalSimilarity / prospect.getPlayerCareer().size();
+        return similarity;
+    }
 
 
-   checkPhysicals method (Player prospect, Player historical)
-        divide prospect weight by historical weight to get similarity percentage, do same with historical\
-        return composite percentage
 
-   checkPerformance method (Player prospect, Player historical)
-        for each category in season, compare prospect's performance in category to historical player's performance in category
-        calculate for each season, return average of each season's similarity
+//   checkGrowth method (Player prospect, Player historical)
+//        calculate percent growth in each individual stat from year-to-year
+//            i.e. if historical player's FT% increased by 10% between first 2 seasons, 20% between 2nd and 3rd, 15% between 3rd and 4th, composite FT% growth is 15%
+//            compare composite growth of historical player in category to prospect's growth in that category
+//            now with similarity of each category's growth, return composite similarity
 
-   checkGrowth method (Player prospect, Player historical)
-        calculate percent growth in each individual stat from year-to-year
-            i.e. if historical player's FT% increased by 10% between first 2 seasons, 20% between 2nd and 3rd, 15% between 3rd and 4th, composite FT% growth is 15%
-            compare composite growth of historical player in category to prospect's growth in that category
-            now with similarity of each category's growth, return composite similarity
-     */
+    public double checkGrowth(Player prospect, Player historical){
+        double similarity = 0;
+
+        return similarity;
+    }
+
+
 
     // pretty straightforward here
     // the only complicated thing going on is that in order to get an accurate percentage, I use Math.min and Math.max so that the smaller number is always divided by larger number
     public double checkPhysicals(Player prospect, Player historical){
-         int biggerHeight = Math.max(prospect.getHeight(), historical.getHeight());
-         int smallerHeight = Math.min(prospect.getHeight(), historical.getHeight());
+         double biggerHeight = Math.max(prospect.getHeight(), historical.getHeight());
+         double smallerHeight = Math.min(prospect.getHeight(), historical.getHeight());
          double heightSimilarity = smallerHeight / biggerHeight;
 
-         int biggerWeight = Math.max(prospect.getWeight(), historical.getWeight());
-         int smallerWeight = Math.min(prospect.getWeight(), historical.getWeight());
+         double biggerWeight = Math.max(prospect.getWeight(), historical.getWeight());
+         double smallerWeight = Math.min(prospect.getWeight(), historical.getWeight());
          double weightSimilarity = smallerWeight / biggerWeight;
 
          double similarity = (heightSimilarity + weightSimilarity) / 2;
