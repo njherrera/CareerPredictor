@@ -28,14 +28,15 @@ public class ComparisonTool {
 //   checkPerformance method (Player prospect, Player historical)
 //        for each category in season, compare prospect's performance in category to historical player's performance in category
 //        calculate for each season, return average of each season's similarity
-//   using prospect.getPlayerCareer().size() for the loop will result in only comparing the prospect's seasons to the first X of historical player's, with X being the amount of seasons the prospect has played
 
+//   using prospect.getPlayerCareer().size() for the loop will result in only comparing the prospect's seasons to the first X of historical player's, with X being the amount of seasons the prospect has played
+//   code in for loop progresses through each season in prospect's career and compares to corresponding season in historical player's career
     public double checkPerformance(Player prospect, Player historical){
         double totalSimilarity = 0;
-        for (int i = 0; i < prospect.getPlayerCareer().size(); i++) {
-           totalSimilarity += prospect.getPlayerCareer().get(i).compareToAnotherSeason(historical.getPlayerCareer().get(i));
+        for (int i = 0; i < prospect.getPlayerCareer().getSeasons().size(); i++) {
+           totalSimilarity += prospect.getPlayerCareer().getSeasons().get(i).compareToAnotherSeason(historical.getPlayerCareer().getSeasons().get(i));
         }
-        double similarity = totalSimilarity / prospect.getPlayerCareer().size();
+        double similarity = totalSimilarity / prospect.getPlayerCareer().getSeasons().size();
         return similarity;
     }
 

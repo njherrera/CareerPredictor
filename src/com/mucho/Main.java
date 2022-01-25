@@ -16,15 +16,13 @@ public class Main {
     Write code for comparing players
         X physicals
         growth
-        individual seasons
+        X individual seasons
+    Compare players to given prospect, check to see if my similar players line up with 538's similar players
     Write code for generating a composite player based on most similar players and their similarity scores
         i.e. weight players with similarity score of 70 more than players with score of 50
     Write code for using comparisons to make projections
-    Select 10 players from dataset that 538 identifies as most similar to given player
-    Analyze 10 players, given player
-    Run comparison on given player with just those 10 players
-    Check comparison vs 538
     Figure out some way to automate loading in the stats of a given prospect instead of entering manually
+        complete database with more data from 2018-current? scrape off bball ref?
     */
     public static void main(String[] args) throws SQLException {
 
@@ -34,10 +32,8 @@ public class Main {
         q.populateCareer(MJ);
         q.populateCareer(Clyde);
         ComparisonTool ct = new ComparisonTool();
-        Season MJSeason = MJ.getPlayerCareer().get(0);
-        Season clydeSeason = Clyde.getPlayerCareer().get(0);
-        double similarity = ct.checkPerformance(MJ, Clyde);
-        System.out.println(similarity);
+        MJ.getPlayerCareer().chartGrowth();
+        System.out.println(MJ.getPlayerCareer().toString());
 
     }
 }
