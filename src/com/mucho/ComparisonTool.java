@@ -19,7 +19,7 @@ public class ComparisonTool {
 //        separate method for each, this method calls the sub-methods and tallies up the similarity score
 
     public double checkSimilarity(Player prospect, Player historical){
-        double overallSimilarity = (checkPerformance(prospect, historical) + checkGrowth(prospect, historical) + checkPhysicals(prospect, historical)) / 3;
+        double overallSimilarity = (comparePerformance(prospect, historical) + compareGrowth(prospect, historical) + comparePhysicals(prospect, historical)) / 3;
         return overallSimilarity;
     }
 
@@ -31,7 +31,7 @@ public class ComparisonTool {
 
 //   using prospect.getPlayerCareer().size() for the loop will result in only comparing the prospect's seasons to the first X of historical player's, with X being the amount of seasons the prospect has played
 //   code in for loop progresses through each season in prospect's career and compares to corresponding season in historical player's career
-    public double checkPerformance(Player prospect, Player historical){
+    public double comparePerformance(Player prospect, Player historical){
         double totalSimilarity = 0;
         for (int i = 0; i < prospect.getPlayerCareer().getSeasons().size(); i++) {
            totalSimilarity += prospect.getPlayerCareer().getSeasons().get(i).compareToAnotherSeason(historical.getPlayerCareer().getSeasons().get(i));
@@ -48,9 +48,8 @@ public class ComparisonTool {
 //            compare composite growth of historical player in category to prospect's growth in that category
 //            now with similarity of each category's growth, return composite similarity
 
-    public double checkGrowth(Player prospect, Player historical){
-        double similarity = 0;
-
+    public double compareGrowth(Player prospect, Player historical){
+        double similarity = prospect.getPlayerCareer().compareToAnotherCareer(historical.getPlayerCareer());
         return similarity;
     }
 
@@ -58,7 +57,7 @@ public class ComparisonTool {
 
     // pretty straightforward here
     // the only complicated thing going on is that in order to get an accurate percentage, I use Math.min and Math.max so that the smaller number is always divided by larger number
-    public double checkPhysicals(Player prospect, Player historical){
+    public double comparePhysicals(Player prospect, Player historical){
          double biggerHeight = Math.max(prospect.getHeight(), historical.getHeight());
          double smallerHeight = Math.min(prospect.getHeight(), historical.getHeight());
          double heightSimilarity = smallerHeight / biggerHeight;

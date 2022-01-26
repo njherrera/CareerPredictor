@@ -32,6 +32,37 @@ public class Career {
         this.seasons.add(season);
     }
 
+    public double compareToAnotherCareer(Career compareTo){
+        double overallSimilarity = 0;
+
+        overallSimilarity += compareCategory(this.trueShootingGrowth, compareTo.getTrueShootingGrowth());
+        overallSimilarity += compareCategory(this.freeThrowPercentageGrowth, compareTo.getFreeThrowPercentageGrowth());
+        overallSimilarity += compareCategory(this.usageGrowth, compareTo.getUsageGrowth());
+        overallSimilarity += compareCategory(this.threePointRateGrowth, compareTo.getThreePointRateGrowth());
+        overallSimilarity += compareCategory(this.freeThrowRateGrowth, compareTo.getFreeThrowRateGrowth());
+        overallSimilarity += compareCategory(this.assistPercentageGrowth, compareTo.getAssistPercentageGrowth());
+        overallSimilarity += compareCategory(this.turnoverPercentageGrowth, compareTo.getTurnoverPercentageGrowth());
+        overallSimilarity += compareCategory(this.reboundPercentageGrowth, compareTo.getReboundPercentageGrowth());
+        overallSimilarity += compareCategory(this.blockPercentageGrowth, compareTo.getBlockPercentageGrowth());
+        overallSimilarity += compareCategory(this.stealPercentageGrowth, compareTo.getStealPercentageGrowth());
+        overallSimilarity += compareCategory(this.defensivePlusMinusGrowth, compareTo.getDefensivePlusMinusGrowth());
+
+        return overallSimilarity / 11;
+    }
+
+    // like with comparePerforamnce in ComparisonTool, we find the shortest career length of the two careers and use it for the for loop (to avoid indexing errors)
+    public double compareCategory(double[] thisCareerCategory, double[] otherCareerCategory){
+        double shortestCareerLength = Math.min(thisCareerCategory.length, otherCareerCategory.length);
+        double overallSimilarity = 0;
+        for(int i = 0; i < shortestCareerLength; i++){
+            double biggestNumber = Math.max(thisCareerCategory[i], otherCareerCategory[i]);
+            double smallestNumber = Math.min(thisCareerCategory[i], otherCareerCategory[i]);
+            double similarity = Math.abs((biggestNumber - smallestNumber) / biggestNumber);
+            overallSimilarity += similarity;
+        }
+        return overallSimilarity / 11;
+    }
+
     public void chartGrowth(){
         chartTrueShootingGrowth();
         chartFTPercentageGrowth();
@@ -47,6 +78,7 @@ public class Career {
     }
 
 
+    // this and other chart____Growth methods loop through each season and compare production to the previous season, starting at the 2nd season
     public void chartTrueShootingGrowth(){
         trueShootingGrowth = new double[this.seasons.size() - 1];
         for(int i = 1; i < this.seasons.size(); i++){

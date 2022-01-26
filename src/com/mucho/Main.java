@@ -33,7 +33,8 @@ public class Main {
         q.populateCareer(Clyde);
         ComparisonTool ct = new ComparisonTool();
         MJ.getPlayerCareer().chartGrowth();
-        System.out.println(MJ.getPlayerCareer().toString());
+        Clyde.getPlayerCareer().chartGrowth();
+        ct.compareGrowth(MJ, Clyde);
 
     }
 }
