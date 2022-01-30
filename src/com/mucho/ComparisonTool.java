@@ -3,15 +3,29 @@ package com.mucho;
 // compares given player to historical players
 // if similarity of historical player is >X, add that player to list of players similar to given player
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 public class ComparisonTool {
 
 
 //  GET SIMILAR PLAYERS METHOD
 //    input: prospect player, list of historical players
 //        for each historical player in same age range as prospect player:
-//           if checkSimilarity (prospect, historical player) >= some threshold, add the historical player to similarPlayers
-//        return similarPlayers
-//
+//           if checkSimilarity (prospect, historical player) >= some threshold, add the historical player to prospect's similarPlayers
+
+
+    public void getSimilarPlayers(Player prospect) throws SQLException {
+        SQLQuerier querier = new SQLQuerier();
+        ArrayList<Player> sameAgePlayers = querier.getPlayersSameAge(prospect.getRookieYearAge());
+        for (Player plyr : sameAgePlayers) {
+            querier.populateCareer(plyr);
+            plyr.getPlayerCareer().chartGrowth();
+            if (checkSimilarity(prospect, plyr) >= 70){
+                prospect.addSimilarPlayer(plyr);
+            }
+        }
+    }
 //
 //    checkSimilarity (Player prospect, Player historical)
 //    input: prospect player, historical player
@@ -33,10 +47,11 @@ public class ComparisonTool {
 //   code in for loop progresses through each season in prospect's career and compares to corresponding season in historical player's career
     public double comparePerformance(Player prospect, Player historical){
         double totalSimilarity = 0;
-        for (int i = 0; i < prospect.getPlayerCareer().getSeasons().size(); i++) {
+        int shortestCareer = Math.min(prospect.getPlayerCareer().getSeasons().size(), historical.getPlayerCareer().getSeasons().size());
+        for (int i = 0; i < shortestCareer; i++) {
            totalSimilarity += prospect.getPlayerCareer().getSeasons().get(i).compareToAnotherSeason(historical.getPlayerCareer().getSeasons().get(i));
         }
-        double similarity = totalSimilarity / prospect.getPlayerCareer().getSeasons().size();
+        double similarity = totalSimilarity / shortestCareer;
         return similarity;
     }
 
@@ -58,8 +73,8 @@ public class ComparisonTool {
     // pretty straightforward here
     // the only complicated thing going on is that in order to get an accurate percentage, I use Math.min and Math.max so that the smaller number is always divided by larger number
     public double comparePhysicals(Player prospect, Player historical){
-         double biggerHeight = Math.max(prospect.getHeight(), historical.getHeight());
-         double smallerHeight = Math.min(prospect.getHeight(), historical.getHeight());
+         double biggerHeight = (Math.max(prospect.getHeight(), historical.getHeight())) - 62;
+         double smallerHeight = (Math.min(prospect.getHeight(), historical.getHeight()) - 62);
          double heightSimilarity = smallerHeight / biggerHeight;
 
          double biggerWeight = Math.max(prospect.getWeight(), historical.getWeight());

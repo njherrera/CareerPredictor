@@ -21,7 +21,6 @@ public class Career {
     private double[] reboundPercentageGrowth;
     private double[] blockPercentageGrowth;
     private double[] stealPercentageGrowth;
-    private double[] defensivePlusMinusGrowth;
 
     public Career() {
         ArrayList<Season> career = new ArrayList<>();
@@ -45,22 +44,32 @@ public class Career {
         overallSimilarity += compareCategory(this.reboundPercentageGrowth, compareTo.getReboundPercentageGrowth());
         overallSimilarity += compareCategory(this.blockPercentageGrowth, compareTo.getBlockPercentageGrowth());
         overallSimilarity += compareCategory(this.stealPercentageGrowth, compareTo.getStealPercentageGrowth());
-        overallSimilarity += compareCategory(this.defensivePlusMinusGrowth, compareTo.getDefensivePlusMinusGrowth());
 
-        return overallSimilarity / 11;
+        return overallSimilarity / 10;
     }
 
     // like with comparePerforamnce in ComparisonTool, we find the shortest career length of the two careers and use it for the for loop (to avoid indexing errors)
+    // checking to see if number is NaN because otherwise program gets thrown off when a value is 0 (i.e. ben wallace having a 3pr of 0 his first four seasons)
     public double compareCategory(double[] thisCareerCategory, double[] otherCareerCategory){
         double shortestCareerLength = Math.min(thisCareerCategory.length, otherCareerCategory.length);
         double overallSimilarity = 0;
+        double seasonSimilarity = 0;
         for(int i = 0; i < shortestCareerLength; i++){
-            double biggestNumber = Math.max(thisCareerCategory[i], otherCareerCategory[i]);
-            double smallestNumber = Math.min(thisCareerCategory[i], otherCareerCategory[i]);
-            double similarity = Math.abs((biggestNumber - smallestNumber) / biggestNumber);
-            overallSimilarity += similarity;
+            double biggestNumber = 1 + (Math.max(thisCareerCategory[i], otherCareerCategory[i]));
+            double smallestNumber = 1 + (Math.min(thisCareerCategory[i], otherCareerCategory[i]));
+            if (Double.isNaN(smallestNumber) && Double.isNaN(biggestNumber)) {
+                seasonSimilarity = 1;
+                overallSimilarity += seasonSimilarity;
+            } else if (Double.isNaN(smallestNumber) && !(Double.isNaN(biggestNumber))){
+                seasonSimilarity = 0;
+                overallSimilarity += seasonSimilarity;
+            } else if (!(Double.isNaN(smallestNumber)) && !(Double.isNaN(biggestNumber))) {
+                seasonSimilarity = smallestNumber / biggestNumber;
+                overallSimilarity += seasonSimilarity;
+            }
+
         }
-        return overallSimilarity / 11;
+        return overallSimilarity / shortestCareerLength;
     }
 
     public void chartGrowth(){
@@ -74,7 +83,6 @@ public class Career {
         chartReboundPercentageGrowth();
         chartBlockPercentageGrowth();
         chartStealPercentageGrowth();
-        chartDefensivePlusMinusGrowth();
     }
 
 
@@ -83,7 +91,8 @@ public class Career {
         trueShootingGrowth = new double[this.seasons.size() - 1];
         for(int i = 1; i < this.seasons.size(); i++){
             double change = this.seasons.get(i).getTrueShooting() - this.seasons.get(i -1).getTrueShooting();
-            trueShootingGrowth[i - 1] = change;
+            double percentDifference = change / this.seasons.get(i-1).getTrueShooting();
+            trueShootingGrowth[i - 1] = percentDifference;
         }
     }
 
@@ -91,7 +100,8 @@ public class Career {
         freeThrowPercentageGrowth = new double[this.seasons.size() - 1];
         for(int i = 1; i < this.seasons.size(); i++){
             double change = this.seasons.get(i).getFreeThrowPercentage() - this.seasons.get(i -1).getFreeThrowPercentage();
-            freeThrowPercentageGrowth[i - 1] = change;
+            double percentDifference = change / this.seasons.get(i-1).getFreeThrowPercentage();
+            freeThrowPercentageGrowth[i - 1] = percentDifference;
         }
     }
 
@@ -99,7 +109,8 @@ public class Career {
         usageGrowth = new double[this.seasons.size() - 1];
         for(int i = 1; i < this.seasons.size(); i++){
             double change = this.seasons.get(i).getUsage() - this.seasons.get(i -1).getUsage();
-            usageGrowth[i - 1] = change;
+            double percentDifference = change / this.seasons.get(i-1).getUsage();
+            usageGrowth[i - 1] = percentDifference;
         }
     }
 
@@ -107,7 +118,8 @@ public class Career {
         threePointRateGrowth = new double[this.seasons.size() - 1];
         for(int i = 1; i < this.seasons.size(); i++){
             double change = this.seasons.get(i).getThreePointRate() - this.seasons.get(i -1).getThreePointRate();
-            threePointRateGrowth[i - 1] = change;
+            double percentDifference = change / this.seasons.get(i-1).getThreePointRate();
+            threePointRateGrowth[i - 1] = percentDifference;
         }
     }
 
@@ -115,7 +127,8 @@ public class Career {
         freeThrowRateGrowth = new double[this.seasons.size() - 1];
         for(int i = 1; i < this.seasons.size(); i++){
             double change = this.seasons.get(i).getFreeThrowRate() - this.seasons.get(i -1).getFreeThrowRate();
-            freeThrowRateGrowth[i - 1] = change;
+            double percentDifference = change / this.seasons.get(i-1).getFreeThrowRate();
+            freeThrowRateGrowth[i - 1] = percentDifference;
         }
     }
 
@@ -123,7 +136,8 @@ public class Career {
         assistPercentageGrowth = new double[this.seasons.size() - 1];
         for(int i = 1; i < this.seasons.size(); i++){
             double change = this.seasons.get(i).getAssistPercentage() - this.seasons.get(i -1).getAssistPercentage();
-            assistPercentageGrowth[i - 1] = change;
+            double percentDifference = change / this.seasons.get(i-1).getAssistPercentage();
+            assistPercentageGrowth[i - 1] = percentDifference;
         }
     }
 
@@ -131,7 +145,8 @@ public class Career {
         turnoverPercentageGrowth = new double[this.seasons.size() - 1];
         for(int i = 1; i < this.seasons.size(); i++){
             double change = this.seasons.get(i).getTurnoverPercentage() - this.seasons.get(i -1).getTurnoverPercentage();
-            turnoverPercentageGrowth[i - 1] = change;
+            double percentDifference = change / this.seasons.get(i-1).getTurnoverPercentage();
+            turnoverPercentageGrowth[i - 1] = percentDifference;
         }
     }
 
@@ -139,7 +154,8 @@ public class Career {
         reboundPercentageGrowth = new double[this.seasons.size() - 1];
         for(int i = 1; i < this.seasons.size(); i++){
             double change = this.seasons.get(i).getReboundPercentage() - this.seasons.get(i -1).getReboundPercentage();
-            reboundPercentageGrowth[i - 1] = change;
+            double percentDifference = change / this.seasons.get(i-1).getReboundPercentage();
+            reboundPercentageGrowth[i - 1] = percentDifference;
         }
     }
 
@@ -147,7 +163,8 @@ public class Career {
         blockPercentageGrowth = new double[this.seasons.size() - 1];
         for(int i = 1; i < this.seasons.size(); i++){
             double change = this.seasons.get(i).getBlockPercentage() - this.seasons.get(i -1).getBlockPercentage();
-            blockPercentageGrowth[i - 1] = change;
+            double percentDifference = change / this.seasons.get(i-1).getBlockPercentage();
+            blockPercentageGrowth[i - 1] = percentDifference;
         }
     }
 
@@ -155,14 +172,8 @@ public class Career {
         stealPercentageGrowth = new double[this.seasons.size() - 1];
         for(int i = 1; i < this.seasons.size(); i++){
             double change = this.seasons.get(i).getStealPercentage() - this.seasons.get(i -1).getStealPercentage();
-            stealPercentageGrowth[i - 1] = change;
-        }
-    }
-    public void chartDefensivePlusMinusGrowth(){
-        defensivePlusMinusGrowth = new double[this.seasons.size() - 1];
-        for(int i = 1; i < this.seasons.size(); i++){
-            double change = this.seasons.get(i).getDefensivePlusMinus() - this.seasons.get(i -1).getDefensivePlusMinus();
-            defensivePlusMinusGrowth[i - 1] = change;
+            double percentDifference = change / this.seasons.get(i-1).getStealPercentage();
+            stealPercentageGrowth[i - 1] = percentDifference;
         }
     }
 
@@ -254,14 +265,6 @@ public class Career {
         this.stealPercentageGrowth = stealPercentageGrowth;
     }
 
-    public double[] getDefensivePlusMinusGrowth() {
-        return defensivePlusMinusGrowth;
-    }
-
-    public void setDefensivePlusMinusGrowth(double[] defensivePlusMinusGrowth) {
-        this.defensivePlusMinusGrowth = defensivePlusMinusGrowth;
-    }
-
     @Override
     public String toString() {
         return "Career{" +
@@ -275,7 +278,6 @@ public class Career {
                 ", reboundPercentageGrowth=" + Arrays.toString(reboundPercentageGrowth) +
                 ", blockPercentageGrowth=" + Arrays.toString(blockPercentageGrowth) +
                 ", stealPercentageGrowth=" + Arrays.toString(stealPercentageGrowth) +
-                ", defensivePlusMinusGrowth=" + Arrays.toString(defensivePlusMinusGrowth) +
                 '}';
     }
 }

@@ -19,7 +19,6 @@ public class Season {
     private double reboundPercentage;
     private double blockPercentage;
     private double stealPercentage;
-    private double defensivePlusMinus;
 
     public Season(String playerName, int year, int age) {
         this.playerName = playerName;
@@ -52,9 +51,8 @@ public class Season {
         overallSimilarity += this.compareCategory(this.reboundPercentage, compareTo.getReboundPercentage());
         overallSimilarity += this.compareCategory(this.blockPercentage, compareTo.getBlockPercentage());
         overallSimilarity += this.compareCategory(this.stealPercentage, compareTo.getStealPercentage());
-        overallSimilarity += this.compareCategory(this.defensivePlusMinus, compareTo.getDefensivePlusMinus());
 
-        double dividedSimilarity = overallSimilarity / 11;
+        double dividedSimilarity = overallSimilarity / 10;
         return dividedSimilarity;
     }
 
@@ -162,13 +160,6 @@ public class Season {
         this.stealPercentage = stealPercentage;
     }
 
-    public double getDefensivePlusMinus() {
-        return defensivePlusMinus;
-    }
-
-    public void setDefensivePlusMinus(double defensivePlusMinus) {
-        this.defensivePlusMinus = defensivePlusMinus;
-    }
 
     @Override
     public String toString() {
@@ -186,7 +177,6 @@ public class Season {
                 ", reboundPercentage=" + reboundPercentage +
                 ", blockPercentage=" + blockPercentage +
                 ", stealPercentage=" + stealPercentage +
-                ", defensivePlusMinus=" + defensivePlusMinus +
                 '}';
     }
 }

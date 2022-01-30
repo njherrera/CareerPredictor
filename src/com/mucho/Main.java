@@ -27,14 +27,26 @@ public class Main {
     public static void main(String[] args) throws SQLException {
 
         SQLQuerier q = new SQLQuerier();
-        Player MJ = q.makePlayer("Michael Jordan");
+        Player MJ = q.makePlayer("John Stockton");
         Player Clyde = q.makePlayer("Clyde Drexler");
+        Player Kerr = q.makePlayer("Kobe Bryant");
+        Player BigWillie = q.makePlayer("Willie Anderson");
+        Player Rodman = q.makePlayer("Michael Jordan");
         q.populateCareer(MJ);
         q.populateCareer(Clyde);
+        q.populateCareer(Kerr);
+        q.populateCareer(BigWillie);
+        q.populateCareer(Rodman);
         ComparisonTool ct = new ComparisonTool();
         MJ.getPlayerCareer().chartGrowth();
         Clyde.getPlayerCareer().chartGrowth();
-        ct.compareGrowth(MJ, Clyde);
+        Kerr.getPlayerCareer().chartGrowth();
+        BigWillie.getPlayerCareer().chartGrowth();
+        Rodman.getPlayerCareer().chartGrowth();
+        System.out.println(ct.compareGrowth(Kerr, Rodman));
+        System.out.println(ct.comparePerformance(Kerr, Rodman));
+        System.out.println(ct.comparePhysicals(Kerr, Rodman));
+        System.out.println(ct.checkSimilarity(Kerr, Rodman));
 
     }
 }

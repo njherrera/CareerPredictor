@@ -72,7 +72,6 @@ public class SQLQuerier {
             newSeason.setReboundPercentage(rSet.getDouble("reboundPercentage"));
             newSeason.setBlockPercentage(rSet.getDouble("blockPercentage"));
             newSeason.setStealPercentage(rSet.getDouble("stealPercentage"));
-            newSeason.setDefensivePlusMinus(rSet.getDouble("defensivePlusMinus"));
             plyr.addSeasonToCareer(newSeason);
         }
     }
