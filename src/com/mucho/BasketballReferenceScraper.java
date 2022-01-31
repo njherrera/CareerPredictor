@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 public class BasketballReferenceScraper {
 
+    // this method is going to, given an input player name, connect to the appropriate basketball reference page and grab that player's seasons, then use them to make a player object
     public static void connectToURL() throws IOException {
         Document doc = Jsoup.connect("https://www.basketball-reference.com/players/j/jordami01.html").get();
         String title = doc.title();
