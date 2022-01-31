@@ -1,5 +1,6 @@
 package com.mucho;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -8,15 +9,16 @@ public class Main {
     /*
     X Decide on data sets
     X set up MySQL database for players and seasons
-    Write code for communicating with database to get players and their seasons
+    X Write code for communicating with database to get players and their seasons
         X find players with age within 1 year of prospect
         X create player objects for a given query
         X populate each player's career with seasons
             start with one!
-    Write code for comparing players
+    X Write code for comparing players
         X physicals
-        growth
+        X growth
         X individual seasons
+    Write class to get data on a given prospect from basketball reference
     Compare players to given prospect, check to see if my similar players line up with 538's similar players
     Write code for generating a composite player based on most similar players and their similarity scores
         i.e. weight players with similarity score of 70 more than players with score of 50
@@ -24,9 +26,9 @@ public class Main {
     Figure out some way to automate loading in the stats of a given prospect instead of entering manually
         complete database with more data from 2018-current? scrape off bball ref?
     */
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, IOException {
 
-        SQLQuerier q = new SQLQuerier();
+/*        SQLQuerier q = new SQLQuerier();
         Player MJ = q.makePlayer("John Stockton");
         Player Clyde = q.makePlayer("Clyde Drexler");
         Player Kerr = q.makePlayer("Kobe Bryant");
@@ -46,7 +48,8 @@ public class Main {
         System.out.println(ct.compareGrowth(Kerr, Rodman));
         System.out.println(ct.comparePerformance(Kerr, Rodman));
         System.out.println(ct.comparePhysicals(Kerr, Rodman));
-        System.out.println(ct.checkSimilarity(Kerr, Rodman));
+        System.out.println(ct.checkSimilarity(Kerr, Rodman));*/
 
+        BasketballReferenceScraper.connectToURL();
     }
 }
