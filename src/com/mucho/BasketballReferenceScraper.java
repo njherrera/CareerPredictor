@@ -6,15 +6,27 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class BasketballReferenceScraper {
 
-    // this method is going to, given an input player name, connect to the appropriate basketball reference page and grab that player's seasons, then use them to make a player object
-    public static void connectToURL() throws IOException {
-        Document doc = Jsoup.connect("https://www.basketball-reference.com/players/j/jordami01.html").get();
-        String title = doc.title();
-        System.out.println(title);
+    public static Player makePlayer(String name) throws IOException {
+        Player prospectPlayer = new Player(name);
+        String[] nameArray = prospectPlayer.getPlayerName().split(" ");
+        String lastName = nameArray[1].toLowerCase();
+        String shortenedLastName = lastName.substring(0, Math.min(5, lastName.length()));
+        String firstName = nameArray[0].toLowerCase();
+        String shortenedFirstName = firstName.substring(0,2);
+        String URL = "https://www.basketball-reference.com/players/" + lastName.charAt(0) + "/" + shortenedLastName + shortenedFirstName + "01.html";
+        Document doc = Jsoup.connect(URL).get();
+        getSeasons(doc, prospectPlayer);
+        getPhysicals(doc, prospectPlayer);
+        return prospectPlayer;
+    }
+
+    // finds the advanced stats table for the player and creates a season for each row, then adds each new season to the player's career
+    public static void getSeasons(Document doc, Player plyr) throws IOException {
         Element content = doc.getElementById("switcher_advanced-playoffs_advanced");
         Element tables = content.getElementById("div_advanced");
         StringBuilder sb = new StringBuilder();
@@ -23,17 +35,29 @@ public class BasketballReferenceScraper {
                 sb.append(elmt.text() + "\n");
             }
         }
-        int counter = 0;
-        Scanner sc = new Scanner(sb.toString());
-        while (sc.hasNextLine()){
-            counter++;
-            if (counter > 2){
-                System.out.println(sc.nextLine());
-                System.out.println(counter);
-            } if (counter <= 2){
-                sc.nextLine();
+        System.out.println(sb.toString());
+    }
+
+    // looks for the height and weight fields in the HTML code, then sets the height and weight variables accordingly and calls setWeight and setHeight on player
+    public static void getPhysicals(Document doc, Player plyr){
+        Element content = doc.getElementById("info");
+        Element physicalElement = content.getElementById("meta");
+        int height = 0;
+        int weight = 0;
+        for (Element elmt : content.getAllElements()){
+            if (elmt.select("span[itemprop=height]").text().contains("-")){
+                String[] heightArray = elmt.select("span[itemprop=height]").text().split("-");
+                int feet = Integer.parseInt(heightArray[0]);
+                int inches = Integer.parseInt(heightArray[1]);
+                int heightInInches = (feet * 12) + inches;
+                height = heightInInches;
+            }
+            if (elmt.select("span[itemprop=weight]").text().contains("lb")){
+                weight = Integer.parseInt(elmt.select("span[itemprop=weight]").text().substring(0,3));
             }
         }
-        Elements seasonTables = content.select(".fulltable");
+        plyr.setHeight(height);
+        plyr.setWeight(weight);
     }
+
 }

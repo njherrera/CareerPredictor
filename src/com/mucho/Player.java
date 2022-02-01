@@ -1,5 +1,6 @@
 package com.mucho;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Player {
@@ -22,6 +23,11 @@ public class Player {
         this.height = height;
         this.weight = weight;
         this.rookieYearAge = rookieAge;
+        this.playerCareer = new Career();
+    }
+
+    public Player(String name){
+        this.playerName = name;
         this.playerCareer = new Career();
     }
 

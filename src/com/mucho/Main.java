@@ -50,6 +50,6 @@ public class Main {
         System.out.println(ct.comparePhysicals(Kerr, Rodman));
         System.out.println(ct.checkSimilarity(Kerr, Rodman));*/
 
-        BasketballReferenceScraper.connectToURL();
+        BasketballReferenceScraper.makePlayer("Michael Jordan");
     }
 }
