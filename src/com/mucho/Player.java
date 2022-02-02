@@ -10,6 +10,7 @@ public class Player {
     private int height;
     private int weight;
     private int rookieYearAge;
+    private double similarityScore;
     private Career playerCareer;
 
 /*    makeProjections METHOD (should this be a class?)
@@ -24,11 +25,13 @@ public class Player {
         this.weight = weight;
         this.rookieYearAge = rookieAge;
         this.playerCareer = new Career();
+        this.similarPlayers = new ArrayList<Player>();
     }
 
     public Player(String name){
         this.playerName = name;
         this.playerCareer = new Career();
+        this.similarPlayers = new ArrayList<Player>();
     }
 
     public void addSimilarPlayer(Player similarPlayer){
@@ -86,13 +89,20 @@ public class Player {
         this.playerCareer = career;
     }
 
+    public void setSimilarityScore(double score){
+        this.similarityScore = score;
+    }
+
+    public double getSimilarityScore(){ return this.similarityScore;}
+
     @Override
     public String toString() {
         return "Player{" +
-                ", playerName='" + playerName + '\'' +
+                "playerName='" + playerName + '\'' +
                 ", height=" + height +
                 ", weight=" + weight +
                 ", rookieYearAge=" + rookieYearAge +
+                ", similarity score=" + similarityScore +
                 '}';
     }
 }

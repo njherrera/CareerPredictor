@@ -3,8 +3,11 @@ package com.mucho;
 // compares given player to historical players
 // if similarity of historical player is >X, add that player to list of players similar to given player
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class ComparisonTool {
 
@@ -15,16 +18,24 @@ public class ComparisonTool {
 //           if checkSimilarity (prospect, historical player) >= some threshold, add the historical player to prospect's similarPlayers
 
 
-    public void getSimilarPlayers(Player prospect) throws SQLException {
+    public ArrayList<Player> getSimilarPlayers(String prospectName) throws SQLException, IOException {
+        Player prospect = BasketballReferenceScraper.makePlayer(prospectName);
+        prospect.getPlayerCareer().chartGrowth();
         SQLQuerier querier = new SQLQuerier();
         ArrayList<Player> sameAgePlayers = querier.getPlayersSameAge(prospect.getRookieYearAge());
         for (Player plyr : sameAgePlayers) {
+            System.out.println(plyr.toString());
             querier.populateCareer(plyr);
-            plyr.getPlayerCareer().chartGrowth();
-            if (checkSimilarity(prospect, plyr) >= 70){
+            if (plyr.getPlayerCareer().getSeasons().size() > 1) {
+                plyr.getPlayerCareer().chartGrowth();
+                System.out.println(plyr.getPlayerCareer().toString());
+                double similarityScore = checkSimilarity(prospect, plyr);
                 prospect.addSimilarPlayer(plyr);
+                plyr.setSimilarityScore(similarityScore);
             }
         }
+        Collections.sort(prospect.getSimilarPlayers(), new SimilarPlayerComparator());
+        return prospect.getSimilarPlayers();
     }
 //
 //    checkSimilarity (Player prospect, Player historical)

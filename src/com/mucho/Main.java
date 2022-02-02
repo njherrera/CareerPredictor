@@ -1,6 +1,7 @@
 package com.mucho;
 
 import java.io.IOException;
+import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -50,6 +51,10 @@ public class Main {
         System.out.println(ct.comparePhysicals(Kerr, Rodman));
         System.out.println(ct.checkSimilarity(Kerr, Rodman));*/
 
-        BasketballReferenceScraper.makePlayer("Michael Jordan");
+        ComparisonTool ct = new ComparisonTool();
+        ArrayList<Player> similarPlayers = ct.getSimilarPlayers("Anthony Edwards");
+        for (Player plyr : similarPlayers){
+            System.out.println(plyr.toString());
+        }
     }
 }

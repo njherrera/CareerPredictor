@@ -28,11 +28,6 @@ public class SQLQuerier {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } while (rSet.next()){
-            System.out.println("ID: " + rSet.getInt("playerID"));
-            System.out.println(", Name: " + rSet.getString("name"));
-            System.out.println(", Height: " + rSet.getInt("height"));
-            System.out.println(", Weight: " + rSet.getInt("weight"));
-            System.out.println(", Rookie Age: " + rSet.getInt("rookieYearAge"));
             Player newPlayer = new Player(rSet.getString("name"), rSet.getInt("height"), rSet.getInt("weight"), rSet.getInt("rookieYearAge"));
             sameAgePlayers.add(newPlayer);
         }
