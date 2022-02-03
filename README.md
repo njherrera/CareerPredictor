@@ -8,4 +8,5 @@ Players are compared in the following areas: performance in each season (calcula
 Project Roadmap:
 
 Add WAR/some other statistic that reflects value of player to increase accuracy of comparisons
+
 Write code for projecting future WAR and trajectory of prospect
