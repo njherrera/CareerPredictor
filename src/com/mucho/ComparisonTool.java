@@ -24,11 +24,9 @@ public class ComparisonTool {
         SQLQuerier querier = new SQLQuerier();
         ArrayList<Player> sameAgePlayers = querier.getPlayersSameAge(prospect.getRookieYearAge());
         for (Player plyr : sameAgePlayers) {
-            System.out.println(plyr.toString());
             querier.populateCareer(plyr);
             if (plyr.getPlayerCareer().getSeasons().size() > 1) {
                 plyr.getPlayerCareer().chartGrowth();
-                System.out.println(plyr.getPlayerCareer().toString());
                 double similarityScore = checkSimilarity(prospect, plyr);
                 prospect.addSimilarPlayer(plyr);
                 plyr.setSimilarityScore(similarityScore);
@@ -37,22 +35,15 @@ public class ComparisonTool {
         Collections.sort(prospect.getSimilarPlayers(), new SimilarPlayerComparator());
         return prospect.getSimilarPlayers();
     }
-//
-//    checkSimilarity (Player prospect, Player historical)
-//    input: prospect player, historical player
-//    checking height, weight, performance in each season, and growth across seasons
-//        separate method for each, this method calls the sub-methods and tallies up the similarity score
 
+// add comparison based on RAPTOR - same idea as performance and growth where we're tracking from year to year, except it's just RAPTOR
+// this comparison gives us a way to compare players based on their overall impact, which we were lacking before
     public double checkSimilarity(Player prospect, Player historical){
         double overallSimilarity = (comparePerformance(prospect, historical) + compareGrowth(prospect, historical) + comparePhysicals(prospect, historical)) / 3;
         return overallSimilarity;
     }
 
 
-
-//   checkPerformance method (Player prospect, Player historical)
-//        for each category in season, compare prospect's performance in category to historical player's performance in category
-//        calculate for each season, return average of each season's similarity
 
 //   using prospect.getPlayerCareer().size() for the loop will result in only comparing the prospect's seasons to the first X of historical player's, with X being the amount of seasons the prospect has played
 //   code in for loop progresses through each season in prospect's career and compares to corresponding season in historical player's career
@@ -68,12 +59,6 @@ public class ComparisonTool {
 
 
 
-//   checkGrowth method (Player prospect, Player historical)
-//        calculate percent growth in each individual stat from year-to-year
-//            i.e. if historical player's FT% increased by 10% between first 2 seasons, 20% between 2nd and 3rd, 15% between 3rd and 4th, composite FT% growth is 15%
-//            compare composite growth of historical player in category to prospect's growth in that category
-//            now with similarity of each category's growth, return composite similarity
-
     public double compareGrowth(Player prospect, Player historical){
         double similarity = prospect.getPlayerCareer().compareToAnotherCareer(historical.getPlayerCareer());
         return similarity;
@@ -81,8 +66,9 @@ public class ComparisonTool {
 
 
 
-    // pretty straightforward here
+    // pretty straightforward here\
     // the only complicated thing going on is that in order to get an accurate percentage, I use Math.min and Math.max so that the smaller number is always divided by larger number
+    // i also subtract 62 from the player's height, since the shortest player ever was 63 inches tall (essentially treating the shortest recorded height as 1)
     public double comparePhysicals(Player prospect, Player historical){
          double biggerHeight = (Math.max(prospect.getHeight(), historical.getHeight())) - 62;
          double smallerHeight = (Math.min(prospect.getHeight(), historical.getHeight()) - 62);

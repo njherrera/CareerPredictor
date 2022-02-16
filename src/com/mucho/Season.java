@@ -19,6 +19,7 @@ public class Season {
     private double reboundPercentage;
     private double blockPercentage;
     private double stealPercentage;
+    private double RAPTOR;
 
     public Season(String playerName, int year, int age) {
         this.playerName = playerName;

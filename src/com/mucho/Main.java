@@ -19,40 +19,22 @@ public class Main {
         X physicals
         X growth
         X individual seasons
-    Write class to get data on a given prospect from basketball reference
-    Compare players to given prospect, check to see if my similar players line up with 538's similar players
+    X Write class to get data on a given prospect from basketball reference
+    X Compare players to given prospect, check to see if my similar players line up with 538's similar players
     Write code for generating a composite player based on most similar players and their similarity scores
         i.e. weight players with similarity score of 70 more than players with score of 50
     Write code for using comparisons to make projections
-    Figure out some way to automate loading in the stats of a given prospect instead of entering manually
+    X Figure out some way to automate loading in the stats of a given prospect instead of entering manually
         complete database with more data from 2018-current? scrape off bball ref?
+
+    Add RAPTOR as another statistic/way to compare players
+        Make new SQL table for RAPTOR, join on season table where season.name = RAPTOR.name and season.year = RAPTOR.year
+        For prospects, get * from RAPTOR where name = Prospect.getName()
     */
     public static void main(String[] args) throws SQLException, IOException {
 
-/*        SQLQuerier q = new SQLQuerier();
-        Player MJ = q.makePlayer("John Stockton");
-        Player Clyde = q.makePlayer("Clyde Drexler");
-        Player Kerr = q.makePlayer("Kobe Bryant");
-        Player BigWillie = q.makePlayer("Willie Anderson");
-        Player Rodman = q.makePlayer("Michael Jordan");
-        q.populateCareer(MJ);
-        q.populateCareer(Clyde);
-        q.populateCareer(Kerr);
-        q.populateCareer(BigWillie);
-        q.populateCareer(Rodman);
         ComparisonTool ct = new ComparisonTool();
-        MJ.getPlayerCareer().chartGrowth();
-        Clyde.getPlayerCareer().chartGrowth();
-        Kerr.getPlayerCareer().chartGrowth();
-        BigWillie.getPlayerCareer().chartGrowth();
-        Rodman.getPlayerCareer().chartGrowth();
-        System.out.println(ct.compareGrowth(Kerr, Rodman));
-        System.out.println(ct.comparePerformance(Kerr, Rodman));
-        System.out.println(ct.comparePhysicals(Kerr, Rodman));
-        System.out.println(ct.checkSimilarity(Kerr, Rodman));*/
-
-        ComparisonTool ct = new ComparisonTool();
-        ArrayList<Player> similarPlayers = ct.getSimilarPlayers("Anthony Edwards");
+        ArrayList<Player> similarPlayers = ct.getSimilarPlayers("Myles Turner");
         for (Player plyr : similarPlayers){
             System.out.println(plyr.toString());
         }

@@ -34,7 +34,7 @@ public class SQLQuerier {
         return sameAgePlayers;
     }
 
-    // mostly a bug-fixing method, used so that
+    // mostly a bug-fixing method
     public Player makePlayer(String name) throws SQLException {
         Player newPlayer = null;
         try{

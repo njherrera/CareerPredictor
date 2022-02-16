@@ -13,12 +13,6 @@ public class Player {
     private double similarityScore;
     private Career playerCareer;
 
-/*    makeProjections METHOD (should this be a class?)
-            input: given player, similarPlayers
-            how to project?
-            what to return/do?
-            */
-
     public Player(String name, int height, int weight, int rookieAge){
         this.playerName = name;
         this.height = height;
