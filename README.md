@@ -7,6 +7,8 @@ Players are compared in the following areas: performance in each season (calcula
 
 Project Roadmap:
 
-Add WAR/some other statistic that reflects overall value of player to increase accuracy of comparisons 
+Add RAPTOR, a respected statistic for representing the all-in-one value of a player
 
-Write code for projecting future WAR and trajectory of prospect
+Integrate RAPTOR into player comparisons
+
+Predict future output of players using the outline in Projector
