@@ -34,7 +34,7 @@ public class Main {
     public static void main(String[] args) throws SQLException, IOException {
 
         ComparisonTool ct = new ComparisonTool();
-        ArrayList<Player> similarPlayers = ct.getSimilarPlayers("Myles Turner");
+        ArrayList<Player> similarPlayers = ct.getSimilarPlayers("Josh Hart");
         for (Player plyr : similarPlayers){
             System.out.println(plyr.toString());
         }

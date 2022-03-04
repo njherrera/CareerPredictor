@@ -11,7 +11,7 @@ public class SQLQuerier {
     pulls seasons of each queried player, then creates Season objects for each of them
      */
 
-    private Connection connect = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/nbaplayers", "root", "antistap1zza");
+    private Connection connect = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/nbaplayers", Credentials.getUserName(), Credentials.getPass());
     private Statement statement = null;
     private ResultSet rSet = null;
     private PreparedStatement preparedStatement = null;
