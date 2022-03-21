@@ -57,6 +57,12 @@ public class Season {
         return dividedSimilarity;
     }
 
+    public double compareAnotherSeasonRAPTOR(Season compareTo){
+        double similarity = 0;
+        similarity += this.compareCategory(this.RAPTOR, compareTo.getRAPTOR());
+        return similarity;
+    }
+
     public String getPlayerName() {
         return playerName;
     }
@@ -157,9 +163,12 @@ public class Season {
         return stealPercentage;
     }
 
-    public void setStealPercentage(double stealPercentage) {
-        this.stealPercentage = stealPercentage;
-    }
+    public void setStealPercentage(double stealPercentage) {this.stealPercentage = stealPercentage; }
+
+    public double getRAPTOR() { return RAPTOR;}
+
+    public void setRAPTOR(double RAPTOR){ this.RAPTOR = RAPTOR; }
+
 
 
     @Override
@@ -178,6 +187,7 @@ public class Season {
                 ", reboundPercentage=" + reboundPercentage +
                 ", blockPercentage=" + blockPercentage +
                 ", stealPercentage=" + stealPercentage +
+                ", RAPTOR=" + RAPTOR +
                 '}';
     }
 }

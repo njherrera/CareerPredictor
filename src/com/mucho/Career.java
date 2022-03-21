@@ -22,6 +22,7 @@ public class Career {
     private double[] reboundPercentageGrowth;
     private double[] blockPercentageGrowth;
     private double[] stealPercentageGrowth;
+    private double[] RAPTORGrowth;
 
     public Career() {
         ArrayList<Season> career = new ArrayList<>();
@@ -174,6 +175,15 @@ public class Career {
             double change = this.seasons.get(i).getStealPercentage() - this.seasons.get(i -1).getStealPercentage();
             double percentDifference = change / this.seasons.get(i-1).getStealPercentage();
             stealPercentageGrowth[i - 1] = percentDifference;
+        }
+    }
+
+    public void chartRAPTORGrowth(){
+        RAPTORGrowth = new double[this.seasons.size() - 1];
+        for(int i = 1; i < this.seasons.size(); i++){
+            double change = this.seasons.get(i).getRAPTOR() - this.seasons.get(i -1).getRAPTOR();
+            double percentDifference = change / this.seasons.get(i-1).getRAPTOR();
+            RAPTORGrowth[i - 1] = percentDifference;
         }
     }
 

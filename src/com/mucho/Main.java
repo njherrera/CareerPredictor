@@ -33,10 +33,18 @@ public class Main {
     */
     public static void main(String[] args) throws SQLException, IOException {
 
+//        SQLQuerier sql = new SQLQuerier();
+//        Player plyr = sql.makePlayer("Damian Lillard");
+//        sql.populateCareer(plyr);
+//        sql.addRAPTOR(plyr);
+//        System.out.println(plyr.getPlayerCareer().getSeasons().get(0).toString());
+//        Player plyr2 = sql.makePlayer("Kobe Bryant");
+//        sql.populateCareer(plyr2);
+//        sql.addRAPTOR(plyr);
         ComparisonTool ct = new ComparisonTool();
-        ArrayList<Player> similarPlayers = ct.getSimilarPlayers("Josh Hart");
-        for (Player plyr : similarPlayers){
-            System.out.println(plyr.toString());
+        ArrayList<Player> similarPlayers = ct.getSimilarPlayers("Kobe Bryant");
+        for (Player plyr : similarPlayers) {
+            System.out.println(plyr.getPlayerCareer().getSeasons().get(0).getRAPTOR());
         }
     }
 }

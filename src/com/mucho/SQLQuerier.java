@@ -1,5 +1,6 @@
 package com.mucho;
 
+import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -13,7 +14,9 @@ public class SQLQuerier {
 
     private Connection connect = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/nbaplayers", Credentials.getUserName(), Credentials.getPass());
     private Statement statement = null;
+    private Statement RAPTORstatement = null;
     private ResultSet rSet = null;
+    private ResultSet RAPTORset = null;
     private PreparedStatement preparedStatement = null;
 
     public SQLQuerier() throws SQLException {
@@ -71,4 +74,17 @@ public class SQLQuerier {
         }
     }
 
+    // using a second SQL query because the RAPTOR data is in another table
+    public void addRAPTOR(Player plyr) throws SQLException {
+            statement = connect.createStatement();
+            rSet = statement.executeQuery("SELECT raptor_total FROM historical_raptor_by_player WHERE player_name = \"" + plyr.getPlayerName() + "\" ");
+            int counter = 0;
+            while (rSet.next()){
+                plyr.getPlayerCareer().getSeasons().get(counter).setRAPTOR(rSet.getDouble("raptor_total"));
+                counter++;
+                if (counter > (plyr.getPlayerCareer().getSeasons().size() - 1)){
+                    break; // RAPTOR data is recent, so with current players there are more seasons for each player in the RAPTOR table than in my season table
+                }
+        }
+    }
 }

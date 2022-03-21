@@ -4,6 +4,7 @@ package com.mucho;
 // if similarity of historical player is >X, add that player to list of players similar to given player
 
 import java.io.IOException;
+import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,16 +33,26 @@ public class ComparisonTool {
                 plyr.setSimilarityScore(similarityScore);
             }
         }
+        addRAPTOR(sameAgePlayers);
         Collections.sort(prospect.getSimilarPlayers(), new SimilarPlayerComparator());
         return prospect.getSimilarPlayers();
+    }
+
+    public void addRAPTOR(ArrayList<Player> plyrs) throws SQLException {
+        SQLQuerier querier = new SQLQuerier();
+        for (Player plyr : plyrs) {
+            querier.addRAPTOR(plyr);
+        }
     }
 
 // add comparison based on RAPTOR - same idea as performance and growth where we're tracking from year to year, except it's just RAPTOR
 // this comparison gives us a way to compare players based on their overall impact, which we were lacking before
     public double checkSimilarity(Player prospect, Player historical){
-        double overallSimilarity = (comparePerformance(prospect, historical) + compareGrowth(prospect, historical) + comparePhysicals(prospect, historical)) / 3;
+        System.out.println(compareRAPTOR(prospect, historical));
+        double overallSimilarity = (comparePerformance(prospect, historical) + compareGrowth(prospect, historical) + comparePhysicals(prospect, historical) + compareRAPTOR(prospect, historical)) / 4;
         return overallSimilarity;
     }
+
 
 
 
@@ -57,6 +68,17 @@ public class ComparisonTool {
         return similarity;
     }
 
+    public double compareRAPTOR(Player prospect, Player historical){
+        double totalSimilarity = 0;
+        int shortestCareer = Math.min(prospect.getPlayerCareer().getSeasons().size(), historical.getPlayerCareer().getSeasons().size());
+        for (int i = 0; i < shortestCareer; i++) {
+            System.out.println(prospect.getPlayerCareer().getSeasons().get(i).getRAPTOR());
+            totalSimilarity += prospect.getPlayerCareer().getSeasons().get(i).compareAnotherSeasonRAPTOR(historical.getPlayerCareer().getSeasons().get(i));
+        }
+        double similarity = totalSimilarity / shortestCareer;
+        System.out.println(similarity);
+        return similarity;
+    }
 
 
     public double compareGrowth(Player prospect, Player historical){
@@ -81,6 +103,7 @@ public class ComparisonTool {
          double similarity = (heightSimilarity + weightSimilarity) / 2;
          return similarity;
     }
+
 
 
 }
