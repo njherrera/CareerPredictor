@@ -33,10 +33,7 @@ public class ComparisonTool {
                 plyr.setSimilarityScore(similarityScore);
             }
         }
-        addRAPTOR(sameAgePlayers);
-        for (Player plyr : sameAgePlayers) {
-            System.out.println(plyr.getPlayerCareer().getSeasons().get(0).getRAPTOR());
-        }
+        addRAPTOR(prospect.getSimilarPlayers());
         Collections.sort(prospect.getSimilarPlayers(), new SimilarPlayerComparator());
         return prospect.getSimilarPlayers();
     }

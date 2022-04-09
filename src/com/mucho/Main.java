@@ -44,7 +44,7 @@ public class Main {
         ComparisonTool ct = new ComparisonTool();
         ArrayList<Player> similarPlayers = ct.getSimilarPlayers("Mikal Bridges");
         for (Player plyr : similarPlayers) {
-            System.out.println(plyr.toString());
+            System.out.println(plyr.toString() + "raptor first season: " + plyr.getPlayerCareer().getSeasons().get(0).getRAPTOR());
         }
     }
 }
