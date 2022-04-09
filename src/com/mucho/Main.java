@@ -42,9 +42,9 @@ public class Main {
 //        sql.populateCareer(plyr2);
 //        sql.addRAPTOR(plyr);
         ComparisonTool ct = new ComparisonTool();
-        ArrayList<Player> similarPlayers = ct.getSimilarPlayers("Kobe Bryant");
+        ArrayList<Player> similarPlayers = ct.getSimilarPlayers("Mikal Bridges");
         for (Player plyr : similarPlayers) {
-            System.out.println(plyr.getPlayerCareer().getSeasons().get(0).getRAPTOR());
+            System.out.println(plyr.toString());
         }
     }
 }

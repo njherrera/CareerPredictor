@@ -16,4 +16,10 @@ public class Projector {
 
 
      */
+
+    // generateCompositePlayer (Player prospect)
+    // take top 10 most similar players, generate composite player using above process
+
+    // projectProspect (Player prospect)
+    // take composite player and use growth (advanced stats + RAPTOR) of composite player to generate predictions for prospect's growth
 }

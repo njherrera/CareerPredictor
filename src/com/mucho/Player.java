@@ -89,6 +89,15 @@ public class Player {
 
     public double getSimilarityScore(){ return this.similarityScore;}
 
+    // helper method for bug-fixing, not sure where else to put it
+    static public void getNamedPlayer(String playerName, ArrayList<Player> players){
+        for (Player plyr : players){
+            if (plyr.getPlayerName().equals(playerName)){
+                System.out.println(plyr.toString());
+            }
+        }
+    }
+
     @Override
     public String toString() {
         return "Player{" +
@@ -96,6 +105,7 @@ public class Player {
                 ", height=" + height +
                 ", weight=" + weight +
                 ", rookieYearAge=" + rookieYearAge +
+                ", career length=" + playerCareer.getSeasons().size() +
                 ", similarity score=" + similarityScore +
                 '}';
     }

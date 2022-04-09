@@ -34,12 +34,16 @@ public class ComparisonTool {
             }
         }
         addRAPTOR(sameAgePlayers);
+        for (Player plyr : sameAgePlayers) {
+            System.out.println(plyr.getPlayerCareer().getSeasons().get(0).getRAPTOR());
+        }
         Collections.sort(prospect.getSimilarPlayers(), new SimilarPlayerComparator());
         return prospect.getSimilarPlayers();
     }
 
     public void addRAPTOR(ArrayList<Player> plyrs) throws SQLException {
         SQLQuerier querier = new SQLQuerier();
+        Player.getNamedPlayer("Luc Mbah a Moute", plyrs);
         for (Player plyr : plyrs) {
             querier.addRAPTOR(plyr);
         }
@@ -48,8 +52,7 @@ public class ComparisonTool {
 // add comparison based on RAPTOR - same idea as performance and growth where we're tracking from year to year, except it's just RAPTOR
 // this comparison gives us a way to compare players based on their overall impact, which we were lacking before
     public double checkSimilarity(Player prospect, Player historical){
-        System.out.println(compareRAPTOR(prospect, historical));
-        double overallSimilarity = (comparePerformance(prospect, historical) + compareGrowth(prospect, historical) + comparePhysicals(prospect, historical) + compareRAPTOR(prospect, historical)) / 4;
+        double overallSimilarity = (comparePerformance(prospect, historical) + compareGrowth(prospect, historical) + comparePhysicals(prospect, historical)) / 3;
         return overallSimilarity;
     }
 
@@ -76,7 +79,6 @@ public class ComparisonTool {
             totalSimilarity += prospect.getPlayerCareer().getSeasons().get(i).compareAnotherSeasonRAPTOR(historical.getPlayerCareer().getSeasons().get(i));
         }
         double similarity = totalSimilarity / shortestCareer;
-        System.out.println(similarity);
         return similarity;
     }
 
