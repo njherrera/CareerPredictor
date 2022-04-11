@@ -93,9 +93,17 @@ public class Player {
     static public void getNamedPlayer(String playerName, ArrayList<Player> players){
         for (Player plyr : players){
             if (plyr.getPlayerName().equals(playerName)){
-                System.out.println(plyr.toString());
+                System.out.println(plyr.getRAPTORAllSeasons());
             }
         }
+    }
+
+    public String getRAPTORAllSeasons(){
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < this.getPlayerCareer().getSeasons().size(); i++) {
+            sb.append(this.getPlayerCareer().getSeasons().get(i).getRAPTOR());
+        }
+        return sb.toString();
     }
 
     @Override

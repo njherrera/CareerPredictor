@@ -76,11 +76,13 @@ public class SQLQuerier {
 
     // using a second SQL query because the RAPTOR data is in another table
     public void addRAPTOR(Player plyr) throws SQLException {
-
             statement = connect.createStatement();
             rSet = statement.executeQuery("SELECT raptor_total FROM historical_raptor_by_player WHERE player_name = \"" + plyr.getPlayerName() + "\" ");
             int counter = 0;
             while (rSet.next()){
+                if (plyr.getPlayerName().equals("LaMelo Ball")){
+                    System.out.println("in rset.next");
+                }
                 try {
                     plyr.getPlayerCareer().getSeasons().get(counter).setRAPTOR(rSet.getDouble("raptor_total"));
                     counter++;

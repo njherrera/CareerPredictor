@@ -6,12 +6,13 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Locale;
 import java.util.Scanner;
 
 public class BasketballReferenceScraper {
 
-    public static Player makePlayer(String name) throws IOException {
+    public static Player makePlayer(String name) throws IOException, SQLException {
         Player prospectPlayer = new Player(name);
         String[] nameArray = prospectPlayer.getPlayerName().split(" ");
         String lastName = nameArray[1].toLowerCase();
@@ -22,6 +23,9 @@ public class BasketballReferenceScraper {
         Document doc = Jsoup.connect(URL).get();
         getSeasons(doc, prospectPlayer);
         getPhysicals(doc, prospectPlayer);
+        SQLQuerier querier = new SQLQuerier();
+        querier.addRAPTOR(prospectPlayer);
+        System.out.println(prospectPlayer.getRAPTORAllSeasons());
         return prospectPlayer;
     }
 

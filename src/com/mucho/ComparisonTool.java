@@ -49,7 +49,7 @@ public class ComparisonTool {
 // add comparison based on RAPTOR - same idea as performance and growth where we're tracking from year to year, except it's just RAPTOR
 // this comparison gives us a way to compare players based on their overall impact, which we were lacking before
     public double checkSimilarity(Player prospect, Player historical){
-        double overallSimilarity = (comparePerformance(prospect, historical) + compareGrowth(prospect, historical) + comparePhysicals(prospect, historical)) / 3;
+        double overallSimilarity = (comparePerformance(prospect, historical) + compareGrowth(prospect, historical) + comparePhysicals(prospect, historical) + compareRAPTOR(prospect, historical)) / 4;
         return overallSimilarity;
     }
 
@@ -72,7 +72,7 @@ public class ComparisonTool {
         double totalSimilarity = 0;
         int shortestCareer = Math.min(prospect.getPlayerCareer().getSeasons().size(), historical.getPlayerCareer().getSeasons().size());
         for (int i = 0; i < shortestCareer; i++) {
-            System.out.println(prospect.getPlayerCareer().getSeasons().get(i).getRAPTOR());
+//            System.out.println(prospect.getPlayerCareer().getSeasons().get(i).getRAPTOR());
             totalSimilarity += prospect.getPlayerCareer().getSeasons().get(i).compareAnotherSeasonRAPTOR(historical.getPlayerCareer().getSeasons().get(i));
         }
         double similarity = totalSimilarity / shortestCareer;

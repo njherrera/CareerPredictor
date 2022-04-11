@@ -27,7 +27,7 @@ public class Main {
     X Figure out some way to automate loading in the stats of a given prospect instead of entering manually
         complete database with more data from 2018-current? scrape off bball ref?
 
-    Add RAPTOR as another statistic/way to compare players
+    X Add RAPTOR as another statistic/way to compare players
         Make new SQL table for RAPTOR, join on season table where season.name = RAPTOR.name and season.year = RAPTOR.year
         For prospects, get * from RAPTOR where name = Prospect.getName()
     */
@@ -42,9 +42,9 @@ public class Main {
 //        sql.populateCareer(plyr2);
 //        sql.addRAPTOR(plyr);
         ComparisonTool ct = new ComparisonTool();
-        ArrayList<Player> similarPlayers = ct.getSimilarPlayers("Mikal Bridges");
-        for (Player plyr : similarPlayers) {
-            System.out.println(plyr.toString() + "raptor first season: " + plyr.getPlayerCareer().getSeasons().get(0).getRAPTOR());
-        }
+        ArrayList<Player> similarPlayers = ct.getSimilarPlayers("LaMelo Ball");
+//        for (Player plyr : similarPlayers) {
+//            System.out.println(plyr.getRAPTORAllSeasons());
+//        }
     }
 }
