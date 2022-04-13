@@ -71,9 +71,10 @@ public class ComparisonTool {
     public double compareRAPTOR(Player prospect, Player historical){
         double totalSimilarity = 0;
         int shortestCareer = Math.min(prospect.getPlayerCareer().getSeasons().size(), historical.getPlayerCareer().getSeasons().size());
-        for (int i = 0; i < shortestCareer; i++) {
-//            System.out.println(prospect.getPlayerCareer().getSeasons().get(i).getRAPTOR());
+        int seasonCounter = 0;
+        for (int i = 0; i < shortestCareer - 1; i++) {
             totalSimilarity += prospect.getPlayerCareer().getSeasons().get(i).compareAnotherSeasonRAPTOR(historical.getPlayerCareer().getSeasons().get(i));
+            seasonCounter++;
         }
         double similarity = totalSimilarity / shortestCareer;
         return similarity;

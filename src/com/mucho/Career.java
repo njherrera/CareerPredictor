@@ -85,6 +85,7 @@ public class Career {
         chartReboundPercentageGrowth();
         chartBlockPercentageGrowth();
         chartStealPercentageGrowth();
+        chartRAPTORGrowth();
     }
 
     // this and other chart____Growth methods loop through each season and compare production to the previous season, starting at the 2nd season

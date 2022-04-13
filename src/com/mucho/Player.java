@@ -101,9 +101,14 @@ public class Player {
     public String getRAPTORAllSeasons(){
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < this.getPlayerCareer().getSeasons().size(); i++) {
-            sb.append(this.getPlayerCareer().getSeasons().get(i).getRAPTOR());
+            sb.append(this.getPlayerCareer().getSeasons().get(i).getRAPTOR() + ", ");
         }
         return sb.toString();
+    }
+
+    public boolean lastSeasonNoRAPTOR() {
+        int numOfLastSeason = this.playerCareer.getSeasons().size() - 1;
+        return (this.playerCareer.getSeasons().get(numOfLastSeason).getRAPTOR() == 0.0);
     }
 
     @Override

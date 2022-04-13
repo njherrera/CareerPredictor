@@ -42,9 +42,9 @@ public class Main {
 //        sql.populateCareer(plyr2);
 //        sql.addRAPTOR(plyr);
         ComparisonTool ct = new ComparisonTool();
-        ArrayList<Player> similarPlayers = ct.getSimilarPlayers("LaMelo Ball");
-//        for (Player plyr : similarPlayers) {
-//            System.out.println(plyr.getRAPTORAllSeasons());
-//        }
+        ArrayList<Player> similarPlayers = ct.getSimilarPlayers("Anfernee Simons");
+        for (Player plyr : similarPlayers) {
+            System.out.println(plyr.toString());
+        }
     }
 }

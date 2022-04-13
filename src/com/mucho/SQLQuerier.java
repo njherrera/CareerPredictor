@@ -79,10 +79,7 @@ public class SQLQuerier {
             statement = connect.createStatement();
             rSet = statement.executeQuery("SELECT raptor_total FROM historical_raptor_by_player WHERE player_name = \"" + plyr.getPlayerName() + "\" ");
             int counter = 0;
-            while (rSet.next()){
-                if (plyr.getPlayerName().equals("LaMelo Ball")){
-                    System.out.println("in rset.next");
-                }
+        while (rSet.next()){
                 try {
                     plyr.getPlayerCareer().getSeasons().get(counter).setRAPTOR(rSet.getDouble("raptor_total"));
                     counter++;
@@ -94,4 +91,25 @@ public class SQLQuerier {
                 }
         }
     }
+
+    public void addProspectRAPTOR(Player plyr) throws SQLException {
+        statement = connect.createStatement();
+        rSet = statement.executeQuery("SELECT raptor_total FROM historical_raptor_by_player WHERE player_name = \"" + plyr.getPlayerName() + "\" ");
+        int counter = 0;
+        if (!rSet.isBeforeFirst() ) {
+            System.out.println("No data");
+        }
+        while (rSet.next()){
+            try {
+                plyr.getPlayerCareer().getSeasons().get(counter).setRAPTOR(rSet.getDouble("raptor_total"));
+                counter++;
+                if (counter > (plyr.getPlayerCareer().getSeasons().size() - 1)) {
+                    break; // RAPTOR data is recent, so with current players there are more seasons for each player in the RAPTOR table than in my season table
+                }
+            } catch (IndexOutOfBoundsException ex){
+                System.out.println(plyr.getPlayerName());
+            }
+        }
+    }
+
 }
