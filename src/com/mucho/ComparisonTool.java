@@ -60,30 +60,49 @@ public class ComparisonTool {
 //   code in for loop progresses through each season in prospect's career and compares to corresponding season in historical player's career
     public double comparePerformance(Player prospect, Player historical){
         double totalSimilarity = 0;
-        int shortestCareer = Math.min(prospect.getPlayerCareer().getSeasons().size(), historical.getPlayerCareer().getSeasons().size());
+        int lengthOfProspectCareer = prospect.getPlayerCareer().getSeasons().size();
+        int lengthOfHistoricalCareer = historical.getPlayerCareer().getSeasons().size();
+        int shortestCareer = Math.min(lengthOfProspectCareer, lengthOfHistoricalCareer);
         for (int i = 0; i < shortestCareer; i++) {
-           totalSimilarity += prospect.getPlayerCareer().getSeasons().get(i).compareToAnotherSeason(historical.getPlayerCareer().getSeasons().get(i));
+            Season prospectSeason = prospect.getPlayerCareer().getSeasons().get(i);
+            Season historicalSeason = historical.getPlayerCareer().getSeasons().get(i);
+           totalSimilarity += prospectSeason.compareToAnotherSeason(historicalSeason);
         }
         double similarity = totalSimilarity / shortestCareer;
         return similarity;
     }
 
+    // this method is a bit weird because the RAPTOR database doesn't include the CURRENT season, but basketballreference does
+    // therefore when comparing a prospect to a player with a longer career, we need to stop short of the current season
+    // if the prospect's career is longer than the historical player's, we don't need to worry about this
     public double compareRAPTOR(Player prospect, Player historical){
         double totalSimilarity = 0;
-        int shortestCareer = Math.min(prospect.getPlayerCareer().getSeasons().size(), historical.getPlayerCareer().getSeasons().size());
+        int lengthOfProspectCareer = prospect.getPlayerCareer().getSeasons().size();
+        int lengthOfHistoricalCareer = historical.getPlayerCareer().getSeasons().size();
+        int shortestCareer = Math.min(lengthOfProspectCareer, lengthOfHistoricalCareer);
         int seasonCounter = 0;
-        for (int i = 0; i < shortestCareer - 1; i++) {
-            totalSimilarity += prospect.getPlayerCareer().getSeasons().get(i).compareAnotherSeasonRAPTOR(historical.getPlayerCareer().getSeasons().get(i));
-            seasonCounter++;
+        for (int i = 0; i < shortestCareer; i++) {
+                Season prospectSeason = prospect.getPlayerCareer().getSeasons().get(i);
+                Season historicalSeason = historical.getPlayerCareer().getSeasons().get(i);
+                totalSimilarity += prospectSeason.compareAnotherSeasonRAPTOR(historicalSeason);
+                seasonCounter++;
+                if(prospect.lastSeasonNoRAPTOR() && (seasonCounter == lengthOfProspectCareer - 1)){
+                    // if prospect doesn't have RAPTOR in their last season and seasonCounter is equal to their second-to-last season
+                    // i.e. if prospect has played 4 seasons and season counter is at 3
+                    break;
+                }
+
         }
-        double similarity = totalSimilarity / shortestCareer;
+        double similarity = totalSimilarity / seasonCounter;
         return similarity;
     }
 
+    public double compareRAPTORGrowth(Player prospect, Player historical){
+        return prospect.getPlayerCareer().compareToAnotherCareerRAPTOR(historical.getPlayerCareer());
+    }
 
     public double compareGrowth(Player prospect, Player historical){
-        double similarity = prospect.getPlayerCareer().compareToAnotherCareer(historical.getPlayerCareer());
-        return similarity;
+        return prospect.getPlayerCareer().compareToAnotherCareer(historical.getPlayerCareer());
     }
 
 

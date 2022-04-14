@@ -50,6 +50,13 @@ public class Career {
         return overallSimilarity / 10;
     }
 
+    public double compareToAnotherCareerRAPTOR(Career compareTo){
+        double RAPTORSimilarity = 0;
+
+        RAPTORSimilarity += compareCategory(this.RAPTORGrowth, compareTo.getRAPTORGrowth());
+
+        return RAPTORSimilarity;
+    }
     // like with comparePerforamnce in ComparisonTool, we find the shortest career length of the two careers and use it for the for loop (to avoid indexing errors)
     // checking to see if number is NaN because otherwise program gets thrown off when a value is 0 (i.e. ben wallace having a 3pr of 0 his first four seasons)
     public double compareCategory(double[] thisCareerCategory, double[] otherCareerCategory){
@@ -276,6 +283,11 @@ public class Career {
         this.stealPercentageGrowth = stealPercentageGrowth;
     }
 
+    public double[] getRAPTORGrowth(){ return RAPTORGrowth; }
+
+    public void setRAPTORGrowth(double[] RAPTORGrowth){
+        this.RAPTORGrowth = RAPTORGrowth;
+    }
     @Override
     public String toString() {
         return "Career{" +
