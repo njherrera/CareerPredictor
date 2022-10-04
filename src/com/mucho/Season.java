@@ -33,10 +33,20 @@ public class Season {
 
     // wrote this method to make the compareToAnotherSeason method easier to read, write, and understand
     public double compareCategory(double thisSeasonCategory, double otherSeasonCategory){
-        double largerCategory = Math.max(thisSeasonCategory, otherSeasonCategory);
-        double smallerCategory = Math.min(thisSeasonCategory, otherSeasonCategory);
-        double similarity = smallerCategory / largerCategory;
-        return similarity;
+       if (thisSeasonCategory > 0 && otherSeasonCategory > 0) {
+           double largerCategory = Math.max(thisSeasonCategory, otherSeasonCategory);
+           double smallerCategory = Math.min(thisSeasonCategory, otherSeasonCategory);
+           return smallerCategory / largerCategory;
+       } else if (thisSeasonCategory < 0 && otherSeasonCategory < 0){
+           double largerCategory = Math.min(thisSeasonCategory, otherSeasonCategory);
+           double smallerCategory = Math.max(thisSeasonCategory, otherSeasonCategory);
+           return smallerCategory / largerCategory;
+       } else if ((thisSeasonCategory < 0 && otherSeasonCategory > 0) || (thisSeasonCategory > 0 && otherSeasonCategory < 0)){
+           double largerCategory = Math.min(thisSeasonCategory, otherSeasonCategory); // here we're finding the largest/smallest categories in terms of absolute value
+           double smallerCategory = Math.max(thisSeasonCategory, otherSeasonCategory);
+           double difference = Math.abs(smallerCategory - largerCategory);
+           return -Math.abs(difference / largerCategory);
+       } else return 0;
     }
 
     public double compareToAnotherSeason(Season compareTo){

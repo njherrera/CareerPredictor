@@ -24,7 +24,7 @@ public class BasketballReferenceScraper {
         getSeasons(doc, prospectPlayer);
         getPhysicals(doc, prospectPlayer);
         SQLQuerier querier = new SQLQuerier();
-        querier.addRAPTOR(prospectPlayer);
+        querier.addProspectRAPTOR(prospectPlayer);
         System.out.println(prospectPlayer.getRAPTORAllSeasons());
         return prospectPlayer;
     }

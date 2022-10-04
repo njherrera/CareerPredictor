@@ -73,6 +73,44 @@ public class SQLQuerier {
             plyr.addSeasonToCareer(newSeason);
         }
     }
+/*
+    // using a second SQL query because the RAPTOR data is in another table
+    public void addRAPTOR(Player plyr) throws SQLException {
+            statement = connect.createStatement();
+            rSet = statement.executeQuery("SELECT raptor_total FROM historical_raptor_by_player WHERE player_name = \"" + plyr.getPlayerName() + "\" ");
+            int counter = 0;
+        while (rSet.next()){
+                try {
+                    plyr.getPlayerCareer().getSeasons().get(counter).setRAPTOR(rSet.getDouble("raptor_total"));
+                    counter++;
+                    if (counter > (plyr.getPlayerCareer().getSeasons().size() - 1)) {
+                        break; // RAPTOR data is recent, so with current players there are more seasons for each player in the RAPTOR table than in my season table
+                    }
+                } catch (IndexOutOfBoundsException ex){
+                    System.out.println(plyr.getPlayerName());
+                }
+        }
+    }
+
+    public void addProspectRAPTOR(Player plyr) throws SQLException {
+        statement = connect.createStatement();
+        rSet = statement.executeQuery("SELECT raptor_total FROM historical_raptor_by_player WHERE player_name = \"" + plyr.getPlayerName() + "\" ");
+        int counter = 0;
+        if (!rSet.isBeforeFirst() ) {
+            System.out.println("No data");
+        }
+        while (rSet.next()){
+            try {
+                plyr.getPlayerCareer().getSeasons().get(counter).setRAPTOR(rSet.getDouble("raptor_total"));
+                counter++;
+                if (counter > (plyr.getPlayerCareer().getSeasons().size() - 1)) {
+                    break; // RAPTOR data is recent, so with current players there are more seasons for each player in the RAPTOR table than in my season table
+                }
+            } catch (IndexOutOfBoundsException ex){
+                System.out.println(plyr.getPlayerName());
+            }
+        }
+    }*/
 
     // using a second SQL query because the RAPTOR data is in another table
     public void addRAPTOR(Player plyr) throws SQLException {

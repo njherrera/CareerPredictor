@@ -49,7 +49,8 @@ public class ComparisonTool {
 // add comparison based on RAPTOR - same idea as performance and growth where we're tracking from year to year, except it's just RAPTOR
 // this comparison gives us a way to compare players based on their overall impact, which we were lacking before
     public double checkSimilarity(Player prospect, Player historical){
-        double overallSimilarity = (comparePerformance(prospect, historical) + compareGrowth(prospect, historical) + comparePhysicals(prospect, historical) + compareRAPTOR(prospect, historical)) / 4;
+//        double overallSimilarity = (comparePerformance(prospect, historical) + compareGrowth(prospect, historical) + comparePhysicals(prospect, historical) + compareRAPTOR(prospect, historical)) / 4;
+        double overallSimilarity = compareRAPTOR(prospect, historical);
         return overallSimilarity;
     }
 

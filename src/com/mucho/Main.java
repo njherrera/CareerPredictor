@@ -19,32 +19,45 @@ public class Main {
         X physicals
         X growth
         X individual seasons
-    X Write class to get data on a given prospect from basketball reference
-    X Compare players to given prospect, check to see if my similar players line up with 538's similar players
+    Write class to get data on a given prospect from basketball reference
+    Compare players to given prospect, check to see if my similar players line up with 538's similar players
     Write code for generating a composite player based on most similar players and their similarity scores
         i.e. weight players with similarity score of 70 more than players with score of 50
     Write code for using comparisons to make projections
-    X Figure out some way to automate loading in the stats of a given prospect instead of entering manually
+    Figure out some way to automate loading in the stats of a given prospect instead of entering manually
         complete database with more data from 2018-current? scrape off bball ref?
-
-    X Add RAPTOR as another statistic/way to compare players
-        Make new SQL table for RAPTOR, join on season table where season.name = RAPTOR.name and season.year = RAPTOR.year
-        For prospects, get * from RAPTOR where name = Prospect.getName()
     */
     public static void main(String[] args) throws SQLException, IOException {
 
-//        SQLQuerier sql = new SQLQuerier();
-//        Player plyr = sql.makePlayer("Damian Lillard");
-//        sql.populateCareer(plyr);
-//        sql.addRAPTOR(plyr);
-//        System.out.println(plyr.getPlayerCareer().getSeasons().get(0).toString());
-//        Player plyr2 = sql.makePlayer("Kobe Bryant");
-//        sql.populateCareer(plyr2);
-//        sql.addRAPTOR(plyr);
+        SQLQuerier q = new SQLQuerier();
+        Player MJ = q.makePlayer("John Stockton");
+        Player Clyde = q.makePlayer("Clyde Drexler");
+        Player Kobe = q.makePlayer("Kobe Bryant");
+        Player BigWillie = q.makePlayer("Willie Anderson");
+        Player AirJordan = q.makePlayer("Michael Jordan");
+        q.populateCareer(MJ);
+        q.populateCareer(Clyde);
+        q.populateCareer(Kobe);
+        q.populateCareer(BigWillie);
+        q.populateCareer(AirJordan);
+        q.addRAPTOR(Kobe);
+        q.addRAPTOR(AirJordan);
         ComparisonTool ct = new ComparisonTool();
-        ArrayList<Player> similarPlayers = ct.getSimilarPlayers("Anfernee Simons");
-        for (Player plyr : similarPlayers) {
+        MJ.getPlayerCareer().chartGrowth();
+        Clyde.getPlayerCareer().chartGrowth();
+        Kobe.getPlayerCareer().chartGrowth();
+        BigWillie.getPlayerCareer().chartGrowth();
+        AirJordan.getPlayerCareer().chartGrowth();
+        /*System.out.println(ct.compareGrowth(Kobe, AirJordan));    
+        System.out.println(ct.comparePerformance(Kerr, Rodman));
+        System.out.println(ct.comparePhysicals(Kerr, Rodman));
+        System.out.println(ct.checkSimilarity(Kerr, Rodman));*/
+        System.out.println(ct.compareRAPTORGrowth(Kobe, AirJordan));
+
+/*        ComparisonTool ct = new ComparisonTool();
+        ArrayList<Player> similarPlayers = ct.getSimilarPlayers("Anthony Edwards");
+        for (Player plyr : similarPlayers){
             System.out.println(plyr.toString());
-        }
+        }*/
     }
 }

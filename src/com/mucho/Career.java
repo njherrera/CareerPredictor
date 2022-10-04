@@ -64,15 +64,27 @@ public class Career {
         double overallSimilarity = 0;
         double seasonSimilarity = 0;
         for(int i = 0; i < shortestCareerLength; i++){
-            double biggestNumber = 1 + (Math.max(thisCareerCategory[i], otherCareerCategory[i]));
-            double smallestNumber = 1 + (Math.min(thisCareerCategory[i], otherCareerCategory[i]));
-            if (Double.isNaN(smallestNumber) && Double.isNaN(biggestNumber)) {
+            double biggestNumber = Math.max(thisCareerCategory[i], otherCareerCategory[i]);
+            double smallestNumber = Math.min(thisCareerCategory[i], otherCareerCategory[i]);
+            if ((smallestNumber < 0 && biggestNumber > 0)){
+                smallestNumber = (smallestNumber - smallestNumber) + .0000000000001;
+                biggestNumber = (biggestNumber - smallestNumber) + .0000000000001;
+            }
+            if (Double.isNaN(smallestNumber) && Double.isNaN(biggestNumber)) { // this if statement and one below are safeguards in case the data is missing an entry
                 seasonSimilarity = 1;
                 overallSimilarity += seasonSimilarity;
             } else if (Double.isNaN(smallestNumber) && !(Double.isNaN(biggestNumber))){
                 seasonSimilarity = 0;
                 overallSimilarity += seasonSimilarity;
-            } else if (!(Double.isNaN(smallestNumber)) && !(Double.isNaN(biggestNumber))) {
+            } else if ((smallestNumber == 0 && biggestNumber != 0) || (biggestNumber == 0 && smallestNumber != 0)){ // if one of the numbers is 0 and the other isn't, then it automatically means no similarity
+                seasonSimilarity = 0;
+                overallSimilarity += seasonSimilarity;
+            }
+              else if (smallestNumber < 0 && biggestNumber < 0){
+                seasonSimilarity = biggestNumber / smallestNumber;
+                overallSimilarity += seasonSimilarity;
+            }
+              else if (!(Double.isNaN(smallestNumber)) && !(Double.isNaN(biggestNumber))) {
                 seasonSimilarity = smallestNumber / biggestNumber;
                 overallSimilarity += seasonSimilarity;
             }
