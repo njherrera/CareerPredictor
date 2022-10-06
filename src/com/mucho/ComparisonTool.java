@@ -28,12 +28,13 @@ public class ComparisonTool {
             querier.populateCareer(plyr);
             if (plyr.getPlayerCareer().getSeasons().size() > 1) {
                 plyr.getPlayerCareer().chartGrowth();
+                plyr.getPlayerCareer().chartRAPTORGrowth();
                 double similarityScore = checkSimilarity(prospect, plyr);
                 prospect.addSimilarPlayer(plyr);
                 plyr.setSimilarityScore(similarityScore);
             }
         }
-        addRAPTOR(prospect.getSimilarPlayers());
+  //      addRAPTOR(prospect.getSimilarPlayers());
         Collections.sort(prospect.getSimilarPlayers(), new SimilarPlayerComparator());
         return prospect.getSimilarPlayers();
     }
@@ -49,10 +50,15 @@ public class ComparisonTool {
 // add comparison based on RAPTOR - same idea as performance and growth where we're tracking from year to year, except it's just RAPTOR
 // this comparison gives us a way to compare players based on their overall impact, which we were lacking before
     public double checkSimilarity(Player prospect, Player historical){
-//        double overallSimilarity = (comparePerformance(prospect, historical) + compareGrowth(prospect, historical) + comparePhysicals(prospect, historical) + compareRAPTOR(prospect, historical)) / 4;
-        double overallSimilarity = compareRAPTOR(prospect, historical);
-        return overallSimilarity;
+        //double overallSimilarity = (comparePerformance(prospect, historical) + compareGrowth(prospect, historical) + comparePhysicals(prospect, historical)) / 3;
+        return compareRAPTORGrowth(prospect, historical);
+       // return comparePerformance(prospect, historical);
+       // return compareGrowth(prospect, historical);
+       // return comparePhysicals(prospect, historical);
+       // return compareRAPTOR(prospect, historical);
     }
+
+
 
 
 

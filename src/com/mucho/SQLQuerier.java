@@ -72,6 +72,7 @@ public class SQLQuerier {
             newSeason.setStealPercentage(rSet.getDouble("stealPercentage"));
             plyr.addSeasonToCareer(newSeason);
         }
+        this.addRAPTOR(plyr);
     }
 /*
     // using a second SQL query because the RAPTOR data is in another table

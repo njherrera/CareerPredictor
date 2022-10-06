@@ -29,6 +29,7 @@ public class Main {
     */
     public static void main(String[] args) throws SQLException, IOException {
 
+/*
         SQLQuerier q = new SQLQuerier();
         Player MJ = q.makePlayer("John Stockton");
         Player Clyde = q.makePlayer("Clyde Drexler");
@@ -48,16 +49,32 @@ public class Main {
         Kobe.getPlayerCareer().chartGrowth();
         BigWillie.getPlayerCareer().chartGrowth();
         AirJordan.getPlayerCareer().chartGrowth();
-        /*System.out.println(ct.compareGrowth(Kobe, AirJordan));    
+        System.out.println(ct.compareGrowth(Kobe, AirJordan));
         System.out.println(ct.comparePerformance(Kerr, Rodman));
         System.out.println(ct.comparePhysicals(Kerr, Rodman));
-        System.out.println(ct.checkSimilarity(Kerr, Rodman));*/
-        System.out.println(ct.compareRAPTORGrowth(Kobe, AirJordan));
+        System.out.println(ct.checkSimilarity(Kerr, Rodman));
+       System.out.println(ct.compareRAPTORGrowth(Kobe, AirJordan));
+*/
 
-/*        ComparisonTool ct = new ComparisonTool();
-        ArrayList<Player> similarPlayers = ct.getSimilarPlayers("Anthony Edwards");
+/*        SQLQuerier q = new SQLQuerier();
+  //      Player Dame = q. makePlayer("Anthony Edwards");
+        Player prospect = BasketballReferenceScraper.makePlayer("Anthony Edwards");
+        prospect.getPlayerCareer().chartGrowth();
+        Player Nene = q.makePlayer("Trevor Ariza");
+ //       q.populateCareer(Dame);
+        q.populateCareer(Nene);
+        prospect.getPlayerCareer().chartGrowth();
+        Nene.getPlayerCareer().chartGrowth();*/
+
+
+
+        ComparisonTool ct = new ComparisonTool();
+//       System.out.println(ct.compareRAPTORGrowth(prospect, Nene));
+       ArrayList<Player> similarPlayers = ct.getSimilarPlayers("Anthony Edwards");
         for (Player plyr : similarPlayers){
             System.out.println(plyr.toString());
-        }*/
+        }
+
+
     }
 }

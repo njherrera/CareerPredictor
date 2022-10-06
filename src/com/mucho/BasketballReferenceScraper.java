@@ -20,7 +20,9 @@ public class BasketballReferenceScraper {
         String firstName = nameArray[0].toLowerCase();
         String shortenedFirstName = firstName.substring(0, 2);
         String URL = "https://www.basketball-reference.com/players/" + lastName.charAt(0) + "/" + shortenedLastName + shortenedFirstName + "01.html";
-        Document doc = Jsoup.connect(URL).get();
+        Document doc = Jsoup.connect(URL)
+                       .userAgent("Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36")
+                       .get();
         getSeasons(doc, prospectPlayer);
         getPhysicals(doc, prospectPlayer);
         SQLQuerier querier = new SQLQuerier();
