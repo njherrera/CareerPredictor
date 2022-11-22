@@ -1,14 +1,14 @@
 # CareerPredictor
 Predicting an NBA prospect's future value by comparing their performance in each season, growth across seaons, and physical measurements to historical players.
 
-For this project, I designed and implemented a custom MySQL database in MySQL Workbench using Omri Goldstein's CSV files (https://www.kaggle.com/drgilermo/nba-players-stats), which track every NBA player and season played from 1950-2017. I also plan on adding support for seasons since 2017 in the future. While the CSV files contain data on every player since 1950, for my project I only include players and seasons since 1980 (when the three-point line was introduced). For this project I also implemented a web scraper, which (given the name of a prospect) takes that player's physicals and statistics from their Basketball Reference page.
+Initially for this project, I designed and implemented a custom MySQL database in MySQL Workbench using Omri Goldstein's CSV files (https://www.kaggle.com/drgilermo/nba-players-stats), which track every NBA player and season played from 1950-2017. Because the data set did not include recent seasons (the seasons of prospects the program is designed to project), I scraped statistics for prospects from Basketball Reference. However, shortly after the last commit in October, Basketball Reference started sending me 403 errors whenever I tried to access it through the code. As a result, I am currently re-designing my SQL database from the ground up with data sets that cover up until the present day. After the new database has been implemented, I will remove BasketballReferenceScraper and also re-work the existing JDBC/SQL code. Ultimately this will be a good thing, as I'll have all my data in one place to make queries to and can update the database with each season.
 
 Players are compared in the following areas: performance in each season (calculated by comparing performance in each statistical category for each season), growth/regression across seasons (calculated by comparing changes in each statistical category across seasons), and physical measurements (height and weight). The scores for each of the three categories are then compiled into an aggregate similarity score, with each category weighted by 33%.
 
 Project Roadmap:
 
-Add RAPTOR, a respected statistic for representing the all-in-one value of a player
+1. Re-work the SQL database
 
-Integrate RAPTOR into player comparisons
+2. Finish work on the comparison algorithms
 
-Predict future output of players using the outline in Projector
+3. Start work on phase 3 of the project, actually projecting the careers of prospects using their most similar historical players
