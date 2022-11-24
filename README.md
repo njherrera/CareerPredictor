@@ -9,6 +9,6 @@ Project Roadmap:
 
 1. Re-work the SQL database
 
-2. Finish work on the comparison algorithms
+2. Finish work on the comparison algorithms (including writing tests as I go)
 
 3. Start work on phase 3 of the project, actually projecting the careers of prospects using their most similar historical players
